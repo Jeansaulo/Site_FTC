@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seção 2: Visão Geral da Temporada - Manual FTC DECODE</title>
+    <title>Seção 3: Elegibilidade e Inspeção - Manual FTC DECODE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -173,7 +173,7 @@
         /* Seção Hero */
         .section-hero {
             background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.9)), 
-                        url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             padding: 140px 20px 80px;
@@ -505,104 +505,135 @@
             background-color: rgba(212, 175, 55, 0.05);
         }
         
-        /* Linha do Tempo */
-        .timeline {
-            position: relative;
-            margin: 40px 0;
-            padding-left: 30px;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--accent-red), var(--accent-gold));
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-            padding-left: 30px;
-        }
-        
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 5px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--accent-gold);
-            border: 3px solid var(--primary-black);
-        }
-        
-        .timeline-date {
-            color: var(--accent-gold);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        
-        .timeline-content {
-            background-color: rgba(10, 10, 10, 0.5);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-gold);
-        }
-        
-        /* Grade de Programas */
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .program-card {
-            background-color: rgba(10, 10, 10, 0.5);
+        /* Checklist de Inspeção */
+        .checklist-container {
+            background-color: rgba(10, 10, 10, 0.7);
             border-radius: 10px;
-            padding: 25px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: transform 0.3s, border-color 0.3s;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid rgba(212, 175, 55, 0.3);
         }
         
-        .program-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
+        .checklist-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
         }
         
-        .program-icon {
+        .checklist-header h4 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .checklist-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .checklist-checkbox {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
-            border-radius: 50%;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            color: white;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            cursor: pointer;
         }
         
-        .program-card h4 {
-            color: var(--accent-gold);
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+        .checklist-checkbox.checked {
+            background-color: var(--accent-gold);
         }
         
-        .program-card p {
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            color: var(--primary-black);
+            font-weight: bold;
+        }
+        
+        .checklist-content h5 {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        
+        .checklist-content p {
             color: var(--text-gray);
             font-size: 0.95rem;
             line-height: 1.5;
+            margin: 0;
+        }
+        
+        /* Fluxograma de Inspeção */
+        .flowchart {
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .flowchart-step {
+            background-color: rgba(10, 10, 10, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-gold);
+            position: relative;
+        }
+        
+        .flowchart-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .flowchart-step::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            width: 2px;
+            height: 30px;
+            background-color: var(--accent-gold);
+            transform: translateX(-50%);
+        }
+        
+        .flowchart-step:last-child::before {
+            display: none;
+        }
+        
+        .flowchart-step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .flowchart-step h4 {
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
         }
         
         /* Índice de Navegação Rápida */
@@ -905,8 +936,17 @@
                 padding: 90px 20px 40px;
             }
             
-            .programs-grid {
-                grid-template-columns: 1fr;
+            .flowchart-step::before {
+                left: 30px;
+                transform: none;
+            }
+            
+            .flowchart-step-number {
+                top: -15px;
+                left: -10px;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
         }
         
@@ -929,16 +969,16 @@
         <div class="header-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-clipboard-check"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>Seção 2: Visão Geral da Temporada</h1>
+                    <h1>Seção 3: Elegibilidade e Inspeção</h1>
                     <div class="breadcrumb">
                         <a href="index.html"><i class="fas fa-home"></i> Página Inicial</a> 
                         <i class="fas fa-chevron-right"></i> 
-                        <a href="secao1.html">Seção 1</a>
+                        <a href="secao2.html">Seção 2</a>
                         <i class="fas fa-chevron-right"></i> 
-                        <span>Seção 2: Visão Geral da Temporada</span>
+                        <span>Seção 3: Elegibilidade e Inspeção</span>
                     </div>
                 </div>
             </div>
@@ -978,18 +1018,18 @@
         
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="#2.1"><i class="fas fa-chevron-right"></i> 2.1 Estrutura da Temporada</a></li>
-                <li><a href="#2.2"><i class="fas fa-chevron-right"></i> 2.2 Linha do Tempo</a></li>
-                <li><a href="#2.3"><i class="fas fa-chevron-right"></i> 2.3 Programas FIRST por Idade</a></li>
-                <li><a href="#2.4"><i class="fas fa-chevron-right"></i> 2.4 Tema da Temporada</a></li>
-                <li><a href="#2.5"><i class="fas fa-chevron-right"></i> 2.5 Progressão de Torneios</a></li>
-                <li><a href="#2.6"><i class="fas fa-chevron-right"></i> 2.6 Datas Importantes</a></li>
-                <li><a href="#2.7"><i class="fas fa-chevron-right"></i> 2.7 Preparação da Equipe</a></li>
+                <li><a href="#3.1"><i class="fas fa-chevron-right"></i> 3.1 Regras de Elegibilidade da Equipe</a></li>
+                <li><a href="#3.2"><i class="fas fa-chevron-right"></i> 3.2 Regras de Elegibilidade de Prêmios</a></li>
+                <li><a href="#3.3"><i class="fas fa-chevron-right"></i> 3.3 Regras de Elegibilidade de Partidas</a></li>
+                <li><a href="#3.4"><i class="fas fa-chevron-right"></i> 3.4 Checklist de Inspeção</a></li>
+                <li><a href="#3.5"><i class="fas fa-chevron-right"></i> 3.5 Processo de Inspeção</a></li>
+                <li><a href="#3.6"><i class="fas fa-chevron-right"></i> 3.6 Regras de Reinspeção</a></li>
+                <li><a href="#3.7"><i class="fas fa-chevron-right"></i> 3.7 Violações e Penalidades</a></li>
             </ul>
         </nav>
         
         <div class="section-indicator">
-            <i class="fas fa-exclamation-circle"></i> Seção 2 de 16
+            <i class="fas fa-exclamation-circle"></i> Seção 3 de 16
         </div>
     </aside>
     
@@ -997,13 +1037,13 @@
     <div class="quick-nav" id="quickNav">
         <h4>Navegação Rápida</h4>
         <ul>
-            <li><a href="#2.1">2.1 Estrutura da Temporada</a></li>
-            <li><a href="#2.2">2.2 Linha do Tempo</a></li>
-            <li><a href="#2.3">2.3 Programas por Idade</a></li>
-            <li><a href="#2.4">2.4 Tema da Temporada</a></li>
-            <li><a href="#2.5">2.5 Progressão</a></li>
-            <li><a href="#2.6">2.6 Datas Importantes</a></li>
-            <li><a href="#2.7">2.7 Preparação</a></li>
+            <li><a href="#3.1">3.1 Elegibilidade da Equipe</a></li>
+            <li><a href="#3.2">3.2 Elegibilidade de Prêmios</a></li>
+            <li><a href="#3.3">3.3 Elegibilidade de Partidas</a></li>
+            <li><a href="#3.4">3.4 Checklist de Inspeção</a></li>
+            <li><a href="#3.5">3.5 Processo de Inspeção</a></li>
+            <li><a href="#3.6">3.6 Reinspeção</a></li>
+            <li><a href="#3.7">3.7 Violações</a></li>
         </ul>
     </div>
 
@@ -1015,10 +1055,10 @@
         
         <div class="hero-content">
             <div class="section-badge">
-                <i class="fas fa-calendar-alt"></i> SEÇÃO 2
+                <i class="fas fa-clipboard-check"></i> SEÇÃO 3
             </div>
-            <h2>Visão Geral da Temporada 2025-2026</h2>
-            <p>Explore a estrutura completa da temporada FIRST AGE™, cronogramas, programas por faixa etária e a progressão dos torneios para a competição DECODE™ apresentada por RTX.</p>
+            <h2>Elegibilidade e Inspeção</h2>
+            <p>Requisitos para participação, regras de elegibilidade e procedimentos de inspeção para garantir que todas as equipes e robôs estejam prontos para competir no FIRST Tech Challenge.</p>
             <p style="font-size: 1rem; margin-top: 20px; color: var(--accent-gold);">
                 <i class="fas fa-mouse-pointer"></i> Use o botão <i class="fas fa-list-ul"></i> à esquerda para acessar o índice completo
             </p>
@@ -1029,431 +1069,407 @@
     <div class="main-content">
         <!-- Conteúdo da Seção -->
         <main class="section-content">
-            <!-- Subseção 2.1 -->
-            <section id="2.1" class="subsection">
+            <!-- Subseção 3.1 -->
+            <section id="3.1" class="subsection">
                 <div class="subsection-header">
-                    <div class="subsection-number">2.1</div>
+                    <div class="subsection-number">3.1</div>
                     <div class="subsection-title">
-                        <h3>Estrutura da Temporada</h3>
-                        <div class="subsection-subtitle">FIRST® AGE™ apresentado por Qualcomm</div>
+                        <h3>Regras de Elegibilidade da Equipe</h3>
+                        <div class="subsection-subtitle">Requisitos para equipes participarem de eventos</div>
                     </div>
                 </div>
                 
                 <div class="content-box">
-                    <p>A temporada 2025-2026 do FIRST Tech Challenge é parte do tema maior <strong>FIRST® AGE™ apresentado por Qualcomm</strong>, inspirado na arqueologia. Cada artefato que desenterramos guarda uma história. Cada ferramenta, cada inovação, cada obra de arte nos conecta às pessoas e ideias que vieram antes de nós.</p>
+                    <p>Para participar de eventos oficiais do FIRST Tech Challenge, acumular pontos de partida ou ser elegível para prêmios de julgamento, as equipes devem estar "prontas para competir" ("competition ready").</p>
                     
-                    <div class="highlight">
-                        <p><i class="fas fa-quote-left"></i> Bem-vindo ao FIRST® AGE™ apresentado por Qualcomm, nossa temporada de robótica 2025-2026 inspirada na arqueologia. O que você vai descobrir? Junte-se a nós para uma experiência para todas as eras. <i class="fas fa-quote-right"></i></p>
+                    <div class="content-box red">
+                        <h4><i class="fas fa-clipboard-list"></i> Regra I101* - Equipes devem estar registradas com a FIRST</h4>
+                        <p><strong>América do Norte - requisitos para estar pronto para competir:</strong></p>
+                        <ul>
+                            <li>Completar o processo de registro anual através do painel da FIRST</li>
+                            <li>Pagar a taxa de registro anual</li>
+                            <li>2 adultos devem ser designados nos papéis de Treinador Principal 1/Treinador Principal 2 e ter passado pela triagem do Programa de Proteção Juvenil (YPP)</li>
+                            <li>Completar quaisquer requisitos adicionais de triagem de Proteção Juvenil (podem variar de região para região)</li>
+                            <li>Registrar todos os membros jovens da equipe no painel da FIRST</li>
+                        </ul>
                     </div>
                     
-                    <p>Usando habilidades STEM e trabalho em equipe, hoje podemos nos aprofundar em descobertas como nunca antes. A FIRST é o esporte onde toda criança pode se tornar profissional. Como a principal organização sem fins lucrativos do mundo que prepara os jovens para o futuro, a FIRST oferece uma suíte de programas de robótica para jovens que mudam vidas e desenvolvem habilidades, confiança e resiliência.</p>
+                    <div class="content-box gold">
+                        <h4><i class="fas fa-globe-americas"></i> Fora da América do Norte - requisitos para estar pronto para competir:</h4>
+                        <ul>
+                            <li>Completar o processo de registro anual através do painel da FIRST</li>
+                            <li>Completar quaisquer requisitos adicionais do Parceiro de Entrega do Programa local com relação a taxas do programa, registros e triagem de proteção juvenil</li>
+                        </ul>
+                    </div>
                     
-                    <h4><i class="fas fa-sitemap"></i> Componentes Principais da Temporada:</h4>
-                    <ul>
-                        <li><strong>Kickoff:</strong> Revelação oficial do jogo DECODE™ em setembro</li>
-                        <li><strong>Período de Construção:</strong> Design, construção e programação dos robôs</li>
-                        <li><strong>Torneios de Qualificação:</strong> Eventos locais e regionais</li>
-                        <li><strong>Torneios de Liga:</strong> Competições em formato de liga</li>
-                        <li><strong>Super Qualificatórios:</strong> Eventos avançados em regiões maiores</li>
-                        <li><strong>Campeonatos Regionais:</strong> Nível mais alto de competição regional</li>
-                        <li><strong>FIRST Championship:</strong> Campeonato mundial</li>
-                        <li><strong>Eventos Premier:</strong> Eventos especiais patrocinados</li>
-                    </ul>
+                    <div class="content-box">
+                        <h4><i class="fas fa-check-in"></i> Regra I102* - Check-in no evento no prazo</h4>
+                        <p>As equipes devem fazer check-in até o prazo de check-in listado no cronograma público do evento ou conforme instruído pelo Diretor do Evento. O check-in deve ser completado por um adulto da equipe e pelo menos um ESTUDANTE deve estar presente no local antes que o check-in possa ser completado.</p>
+                        
+                        <p><strong>Requisitos adicionais de check-in (podem variar por região):</strong></p>
+                        <ul>
+                            <li>Um roster atualizado e completo da equipe do painel da FIRST</li>
+                            <li>Formulários de registro ou consentimento de membros da equipe do Parceiro de Entrega do Programa local</li>
+                            <li>Um ROBÔ construído para jogar o jogo da temporada atual se pretendem participar de PARTIDAS</li>
+                            <li>PORTFÓLIO impresso da equipe (opcional)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><i class="fas fa-users"></i> <strong>Regra I103* - Um adulto responsável deve estar presente durante todo o evento.</strong> Pelo menos 1, preferencialmente 2, adulto(s) responsável(is) pelos membros estudantis da equipe devem estar presentes em todos os momentos durante o evento. Adultos que participam de eventos do FIRST Tech Challenge devem seguir as mesmas regras do manual de competição que ditam as normas de comportamento dos participantes jovens, além de seguir o Código de Conduta da FIRST.</p>
+                    </div>
                 </div>
             </section>
             
-            <!-- Subseção 2.2 -->
-            <section id="2.2" class="subsection">
+            <!-- Subseção 3.2 -->
+            <section id="3.2" class="subsection">
                 <div class="subsection-header">
-                    <div class="subsection-number">2.2</div>
+                    <div class="subsection-number">3.2</div>
                     <div class="subsection-title">
-                        <h3>Linha do Tempo da Temporada</h3>
-                        <div class="subsection-subtitle">Cronograma completo de setembro a abril</div>
+                        <h3>Regras de Elegibilidade de Prêmios</h3>
+                        <div class="subsection-subtitle">Requisitos para ser elegível para prêmios de julgamento</div>
                     </div>
                 </div>
                 
                 <div class="content-box">
-                    <p>A temporada do FIRST Tech Challenge segue uma linha do tempo bem definida, desde o Kickoff em setembro até o FIRST Championship em abril. Seguir este cronograma é essencial para o sucesso da equipe.</p>
+                    <p>Para ser elegível para prêmios de julgamento de equipe, uma equipe deve comparecer ao horário de entrevista estruturada designado (A203). Para alguns prêmios, enviar um PORTFÓLIO conforme solicitado pelo Diretor do Evento (A202) também é um pré-requisito necessário.</p>
                     
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">Setembro 2025</div>
-                            <div class="timeline-content">
-                                <h4><i class="fas fa-rocket"></i> Kickoff da Temporada</h4>
-                                <p>Revelação oficial do jogo DECODE™. As equipes recebem o manual de regras e os kits de campo. Início do período de inscrições.</p>
+                    <div class="content-box red">
+                        <h4><i class="fas fa-award"></i> Regras de Elegibilidade de Prêmios:</h4>
+                        <ul>
+                            <li><strong>Presença obrigatória:</strong> Participar da entrevista estruturada designada</li>
+                            <li><strong>Documentação:</strong> Para alguns prêmios, enviar um portfólio é obrigatório</li>
+                            <li><strong>Região:</strong> Equipes só são elegíveis para o Prêmio Inspire em sua própria região (A213)</li>
+                            <li><strong>Limitação:</strong> Equipes não podem ganhar o Prêmio Inspire em múltiplos Torneios de Qualificação ou de Liga (A214)</li>
+                            <li><strong>Exclusividade:</strong> Equipes só podem ganhar um prêmio de julgamento por evento (A215)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><i class="fas fa-file-alt"></i> Detalhes completos e regras sobre os prêmios do FIRST Tech Challenge podem ser encontrados na Seção 6 Prêmios (A). É responsabilidade da equipe verificar os requisitos específicos de cada prêmio que deseja concorrer.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 3.3 -->
+            <section id="3.3" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">3.3</div>
+                    <div class="subsection-title">
+                        <h3>Regras de Elegibilidade de Partidas</h3>
+                        <div class="subsection-subtitle">Requisitos para participar de partidas de competição</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>Esta seção descreve as regras que regem a participação em PARTIDAS. Uma equipe participou de uma PARTIDA se qualquer membro de sua EQUIPE DE CONDUÇÃO estiver na ÁREA DA ALIANÇA, com ou sem o ROBÔ no CAMPO, no início da PARTIDA.</p>
+                    
+                    <div class="content-box red">
+                        <h4><i class="fas fa-robot"></i> Regra I301* - É o ROBÔ da sua equipe</h4>
+                        <p>O ROBÔ e seus MECANISMOS PRINCIPAIS devem ser construídos pela equipe do FIRST Tech Challenge que se registrou para o evento e pretende usar o ROBÔ para participar de PARTIDAS ou como parte de prêmios de julgamento.</p>
+                        
+                        <p><strong>Mecanismo Principal:</strong> Grupo de COMPONENTES e/ou MECANISMOS montados juntos para atender a pelo menos 1 desafio do jogo: movimento do ROBÔ, manipulação de ELEMENTOS DE PONTUAÇÃO, manipulação de elementos do CAMPO ou realização de uma tarefa pontuável sem a assistência de outro ROBÔ.</p>
+                    </div>
+                    
+                    <div class="content-box gold">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Regra I302* - Inscreva apenas 1 ROBÔ</h4>
+                        <p>Cada equipe só pode inspecionar e jogar PARTIDAS com 1 ROBÔ em um evento do FIRST Tech Challenge. Cada equipe do FIRST Tech Challenge só pode participar de 1 evento simultâneo por vez.</p>
+                        
+                        <p><strong>Violação:</strong> AVISO VERBAL. CARTÃO VERMELHO se não for corrigido.</p>
+                        
+                        <p><strong>Exceção:</strong> Esta regra não proíbe as equipes de trazerem outros ROBÔS ou conjuntos semelhantes a robôs para o local para outros fins, como apresentações de prêmios ou exibições no pit.</p>
+                    </div>
+                    
+                    <div class="content-box">
+                        <h4><i class="fas fa-clipboard-check"></i> Regra I303* - Seja inspecionado antes de jogar uma PARTIDA de Qualificação/Playoff</h4>
+                        <p>Uma equipe só tem permissão para participar de uma PARTIDA de Qualificação ou Playoff e receber PONTOS DE CLASSIFICAÇÃO se seu ROBÔ tiver passado por uma inspeção inicial e completa.</p>
+                        
+                        <p><strong>Violation:</strong> Se antes do início da PARTIDA, a equipe é DESQUALIFICADA e não é elegível para participar da PARTIDA. Se após o início da PARTIDA, a equipe recebe um CARTÃO VERMELHO para aquela PARTIDA.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 3.4 -->
+            <section id="3.4" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">3.4</div>
+                    <div class="subsection-title">
+                        <h3>Checklist de Inspeção</h3>
+                        <div class="subsection-subtitle">Lista de verificação para autoinspeção antes do evento</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>Um Checklist de Inspeção está disponível para ajudar as equipes a fazerem autoinspeção de seu ROBÔ antes do evento. As equipes são fortemente incentivadas a fazerem autoinspeção antes do evento para garantir que estejam prontas para a inspeção oficial.</p>
+                    
+                    <div class="checklist-container">
+                        <div class="checklist-header">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h4>Checklist de Inspeção do ROBÔ</h4>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Configuração Inicial - Cubo de 18 polegadas</h5>
+                                <p>O ROBÔ na CONFIGURAÇÃO INICIAL está totalmente contido em um volume de 18 pol. (45,70 cm) de largura, 18 pol. (45,70 cm) de comprimento e 18 pol. (45,70 cm) de altura?</p>
                             </div>
                         </div>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-date">Setembro - Novembro 2025</div>
-                            <div class="timeline-content">
-                                <h4><i class="fas fa-tools"></i> Período de Construção</h4>
-                                <p>Design, construção, teste e programação dos robôs. As equipes participam de eventos de prática e scrimmages locais.</p>
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Placa de Identificação do ROBÔ</h5>
+                                <p>O ROBÔ tem pelo menos 2 placas de identificação colocadas em locais separados, em superfícies opostas ou adjacentes (≥90 graus de separação)? Cada placa tem pelo menos 6,5 pol. (16,5 cm) de largura e 2,5 pol. (6,4 cm) de altura?</p>
                             </div>
                         </div>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-date">Novembro 2025 - Janeiro 2026</div>
-                            <div class="timeline-content">
-                                <h4><i class="fas fa-trophy"></i> Torneios de Qualificação</h4>
-                                <p>Eventos locais e regionais onde as equipes competem para acumular pontos de avanço e classificação.</p>
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Limites de Expansão</h5>
+                                <p>O ROBÔ não excede os limites de expansão horizontal de 18 pol. × 18 pol. (45,70 cm × 45,70 cm) quando totalmente expandido? As expansões verticais estão dentro dos limites permitidos?</p>
                             </div>
                         </div>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-date">Fevereiro 2026</div>
-                            <div class="timeline-content">
-                                <h4><i class="fas fa-chess-board"></i> Torneios de Liga e Super Qualificatórios</h4>
-                                <p>Competições em formato de liga e eventos avançados para equipes que se destacaram nos torneios de qualificação.</p>
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Contagem de Atuadores</h5>
+                                <p>O ROBÔ não tem mais que 8 motores e 10 servos do total de todos os mecanismos usados em todas as configurações?</p>
                             </div>
                         </div>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-date">Março 2026</div>
-                            <div class="timeline-content">
-                                <h4><i class="fas fa-crown"></i> Campeonatos Regionais</h4>
-                                <p>O nível mais alto de competição dentro de cada região. As equipes competem por vagas no FIRST Championship.</p>
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Sistema de Controle</h5>
+                                <p>Todos os atuadores estão controlados e alimentados através de dispositivos aprovados (Control Hub, Expansion Hub, etc.)?</p>
                             </div>
                         </div>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-date">Abril 2026</div>
-                            <div class="timeline-content">
-                                <h4><i class="fas fa-globe-americas"></i> FIRST Championship</h4>
-                                <p>O evento culminante da temporada, reunindo as melhores equipes de todo o mundo para competir pelo título de campeão mundial.</p>
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Bateria e Fusível</h5>
+                                <p>O ROBÔ usa apenas 1 bateria principal NiMH de 12V aprovada? Há um fusível mini lâmina ATM de 20A equivalente COTS instalado em linha?</p>
                             </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Segurança e Prevenção de Danos</h5>
+                                <p>O ROBÔ não tem bordas afiadas expostas? Os dispositivos de tração não danificam o piso de TELHAS? O ROBÔ permite a remoção segura de ELEMENTOS DE PONTUAÇÃO?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-checkbox"></div>
+                            <div class="checklist-content">
+                                <h5>Conformidade com Regras de Construção</h5>
+                                <p>Todos os componentes e mecanismos estão em conformidade com as Regras de Construção do ROBÔ (Seção 12)? Materiais perigosos ou proibidos foram evitados?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><i class="fas fa-lightbulb"></i> <strong>Dica:</strong> As equipes devem trazer o ROBOT completo, CONSOLE DO OPERADOR e bateria para a inspeção, com todos os mecanismos, configurações e decorações que serão usados no ROBOT em PARTIDAS sem necessidade de reinspeção.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 3.5 -->
+            <section id="3.5" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">3.5</div>
+                    <div class="subsection-title">
+                        <h3>Processo de Inspeção</h3>
+                        <div class="subsection-subtitle">Como funciona a inspeção oficial do robô</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>Em cada evento, o Inspetor Principal do ROBÔ (LRI) tem autoridade final sobre a legalidade de qualquer COMPONENTE, MECANISMO ou ROBÔ. INSPETORES podem reinspecionar ROBÔS a qualquer momento para garantir conformidade com as regras.</p>
+                    
+                    <div class="flowchart">
+                        <div class="flowchart-step">
+                            <div class="flowchart-step-number">1</div>
+                            <h4><i class="fas fa-calendar-alt"></i> Agendamento da Inspeção</h4>
+                            <p>Eventos podem atribuir horários específicos de inspeção para facilitar um processo rápido e ordenado. As equipes devem planejar comparecer aos horários de inspeção designados totalmente prontas para completar a inspeção.</p>
+                        </div>
+                        
+                        <div class="flowchart-step">
+                            <div class="flowchart-step-number">2</div>
+                            <h4><i class="fas fa-robot"></i> Apresentação do ROBÔ</h4>
+                            <p>Na hora da inspeção, o CONSOLE DO OPERADOR e o ROBÔ com bateria devem ser apresentados com todos os MECANISMOS, configurações e decorações que serão usados no ROBÔ em PARTIDAS sem necessidade de reinspeção.</p>
+                        </div>
+                        
+                        <div class="flowchart-step">
+                            <div class="flowchart-step-number">3</div>
+                            <h4><i class="fas fa-user-graduate"></i> Presença de Estudantes</h4>
+                            <p>Pelo menos 1 membro estudante da equipe deve acompanhar o ROBÔ para quaisquer esforços de inspeção (Regra I308*). Exceções podem ser feitas para conflitos importantes (feriados religiosos, testes importantes, problemas de transporte).</p>
+                        </div>
+                        
+                        <div class="flowchart-step">
+                            <div class="flowchart-step-number">4</div>
+                            <h4><i class="fas fa-bolt"></i> Energização do ROBÔ</h4>
+                            <p>As equipes podem ligar e habilitar seu ROBÔ como parte do processo de inspeção (Regra I307*). Os membros da equipe devem informar aos INSPETORES se o ROBÔ deve estar ligado e/ou habilitado para atender a quaisquer critérios de inspeção.</p>
+                        </div>
+                        
+                        <div class="flowchart-step">
+                            <div class="flowchart-step-number">5</div>
+                            <h4><i class="fas fa-clipboard-check"></i> Verificação de Conformidade</h4>
+                            <p>Os INSPETORES verificam todas as regras de construção do ROBÔ (Seção 12), incluindo tamanho, peso, componentes permitidos, sistemas elétricos e de energia, e segurança geral.</p>
+                        </div>
+                        
+                        <div class="flowchart-step">
+                            <div class="flowchart-step-number">6</div>
+                            <h4><i class="fas fa-stamp"></i> Aprovação Final</h4>
+                            <p>Uma vez que todas as regras são verificadas, o ROBÔ recebe aprovação para competir. O ROBÔ pode então participar de PARTIDAS de Qualificação e Playoff.</p>
                         </div>
                     </div>
                     
                     <div class="content-box red">
-                        <h4><i class="fas fa-calendar-check"></i> Data Limite de Inscrição</h4>
-                        <p><strong>17 de novembro de 2025:</strong> Data limite para inscrições de equipes para serem consideradas para alocação de vagas no FIRST Championship. Equipes que se registrarem após esta data podem não ser elegíveis para avançar para o campeonato mundial.</p>
+                        <h4><i class="fas fa-exclamation-circle"></i> Poderes do Inspetor Principal do ROBÔ (LRI):</h4>
+                        <ul>
+                            <li>Autoridade final sobre a legalidade de qualquer componente, mecanismo ou robô</li>
+                            <li>Pode reinspecionar robôs a qualquer momento</li>
+                            <li>Pode exigir ação corretiva antes que um robô seja permitido em partidas subsequentes</li>
+                            <li>Trabalha em colaboração com o Consultor Técnico da FIRST (FTA) e Árbitro Principal</li>
+                        </ul>
                     </div>
                 </div>
             </section>
             
-            <!-- Subseção 2.3 -->
-            <section id="2.3" class="subsection">
+            <!-- Subseção 3.6 -->
+            <section id="3.6" class="subsection">
                 <div class="subsection-header">
-                    <div class="subsection-number">2.3</div>
+                    <div class="subsection-number">3.6</div>
                     <div class="subsection-title">
-                        <h3>Programas FIRST por Faixa Etária</h3>
-                        <div class="subsection-subtitle">Um programa para cada fase de desenvolvimento</div>
+                        <h3>Regras de Reinspeção</h3>
+                        <div class="subsection-subtitle">Quando e como um robô precisa ser reinspecionado</div>
                     </div>
                 </div>
                 
                 <div class="content-box">
-                    <p>A FIRST oferece uma progressão contínua de programas de robótica projetados para envolver estudantes desde a educação infantil até o ensino médio. Cada programa é adaptado para o desenvolvimento cognitivo e habilidades apropriadas para cada faixa etária.</p>
+                    <p>Se um ROBÔ for modificado após sua inspeção mais recente aprovada, ele deve ser reinspecionado antes que o ROBÔ seja elegível para participar de uma PARTIDA.</p>
                     
-                    <div class="programs-grid">
-                        <div class="program-card">
-                            <div class="program-icon">
-                                <i class="fas fa-child"></i>
-                            </div>
-                            <h4>FIRST® LEGO® League Discover</h4>
-                            <p><strong>Idades:</strong> 4-6 anos<br>
-                            <strong>Série:</strong> Educação Infantil ao 1º ano<br>
-                            <strong>Foco:</strong> Exploração inicial de STEM através de brincadeiras com elementos LEGO®</p>
-                        </div>
-                        
-                        <div class="program-card">
-                            <div class="program-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h4>FIRST® LEGO® League Explore</h4>
-                            <p><strong>Idades:</strong> 6-10 anos<br>
-                            <strong>Série:</strong> 2º-4º ano<br>
-                            <strong>Foco:</strong> Pesquisa e design básico de robótica com LEGO®</p>
-                        </div>
-                        
-                        <div class="program-card">
-                            <div class="program-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <h4>FIRST® LEGO® League Challenge</h4>
-                            <p><strong>Idades:</strong> 9-16 anos<br>
-                            <strong>Série:</strong> 4º-8º ano<br>
-                            <strong>Foco:</strong> Robótica mais avançada com programação e competição</p>
-                        </div>
-                        
-                        <div class="program-card">
-                            <div class="program-icon">
-                                <i class="fas fa-microchip"></i>
-                            </div>
-                            <h4>FIRST® Tech Challenge</h4>
-                            <p><strong>Idades:</strong> 12-18 anos<br>
-                            <strong>Série:</strong> 7º-12º ano<br>
-                            <strong>Foco:</strong> Design, construção e programação de robôs de tamanho médio</p>
-                        </div>
-                        
-                        <div class="program-card">
-                            <div class="program-icon">
-                                <i class="fas fa-industry"></i>
-                            </div>
-                            <h4>FIRST® Robotics Competition</h4>
-                            <p><strong>Idades:</strong> 14-18 anos<br>
-                            <strong>Série:</strong> 9º-12º ano<br>
-                            <strong>Foco:</strong> Robótica de nível industrial com robôs de tamanho grande</p>
-                        </div>
+                    <div class="content-box red">
+                        <h4><i class="fas fa-sync-alt"></i> Regra I305* - A menos que a mudança esteja listada abaixo, qualquer mudança em um ROBÔ deve ser reinspecionada</h4>
+                        <p>Exceções (a menos que resultem em uma mudança significativa no tamanho, legalidade ou segurança do ROBÔ):</p>
+                        <ul>
+                            <li>Adição, realocação ou remoção de fixadores (por exemplo, braçadeiras de cabo, fita e rebites)</li>
+                            <li>Adição, realocação ou remoção de rotulagem ou marcação</li>
+                            <li>Adição, realocação ou substituição da PLACA DA EQUIPE</li>
+                            <li>Revisão do código do ROBÔ</li>
+                            <li>Substituição de um COMPONENTE por um COMPONENTE idêntico</li>
+                            <li>Substituição de um MECANISMO por um MECANISMO idêntico (tamanho, peso, material)</li>
+                            <li>Adições, remoções ou reconfiguração do ROBÔ com um subconjunto de MECANISMOS já inspecionados</li>
+                        </ul>
+                        <p><strong>Violation:</strong> O ROBÔ deve ser inspecionado antes de participar de uma PARTIDA ou a equipe receberá um CARTÃO VERMELHO.</p>
                     </div>
-                    
-                    <div class="highlight">
-                        <p><i class="fas fa-graduation-cap"></i> O FIRST Tech Challenge é projetado especificamente para estudantes do ensino fundamental II e ensino médio, oferecendo um equilíbrio perfeito entre acessibilidade e complexidade técnica. É a ponte ideal entre os programas LEGO® League e o FIRST Robotics Competition.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Subseção 2.4 -->
-            <section id="2.4" class="subsection">
-                <div class="subsection-header">
-                    <div class="subsection-number">2.4</div>
-                    <div class="subsection-title">
-                        <h3>Tema da Temporada: UNEARTHED</h3>
-                        <div class="subsection-subtitle">Desenterrando o futuro através da arqueologia</div>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <p>A temporada 2025-2026, <strong>FIRST® AGE™ apresentado por Qualcomm</strong>, tem como tema central a arqueologia e a descoberta. O subtítulo <strong>UNEARTHED</strong> (Desenterrado) reflete a jornada de descoberta que as equipes embarcarão ao longo da temporada.</p>
                     
                     <div class="content-box gold">
-                        <h4><i class="fas fa-digging"></i> Conceito do Jogo DECODE™</h4>
-                        <p>No jogo DECODE™ apresentado por RTX, as alianças competem para marcar artefatos roxos e verdes em seu objetivo, construir padrões e retornar à sua base antes que o tempo se esgote. O obelisco randomizado no início de cada partida define o motivo (motif) que as equipes devem decodificar e replicar.</p>
+                        <h4><i class="fas fa-tools"></i> Regra I304* - Traga o ROBÔ completo e equipamento de suporte para inspeção</h4>
+                        <p>Na hora da inspeção, o ROBÔ deve ser montado em uma configuração típica usada para jogar PARTIDAS. O ROBÔ e todos os mecanismos devem ser inspecionados em todas as CONFIGURAÇÕES INICIAIS.</p>
+                        
+                        <p><strong>Permitido:</strong> ROBÔS podem jogar PARTIDAS com um subconjunto dos mecanismos que estavam presentes durante a inspeção. Apenas mecanismos que estavam presentes durante a inspeção podem ser adicionados, removidos ou reconfigurados entre PARTIDAS.</p>
                     </div>
                     
-                    <h4><i class="fas fa-brain"></i> Conexões com STEM:</h4>
-                    <ul>
-                        <li><strong>Arqueologia:</strong> Métodos científicos de escavação, análise e preservação</li>
-                        <li><strong>Decodificação:</strong> Habilidades de reconhecimento de padrões e solução de problemas</li>
-                        <li><strong>Tecnologia:</strong> Uso de sensores e visão computacional para identificar padrões</li>
-                        <li><strong>Engenharia:</strong> Design de robôs para manipulação precisa de artefatos</li>
-                        <li><strong>Matemática:</strong> Cálculos de trajetória, probabilidade e otimização de estratégias</li>
-                    </ul>
-                    
                     <div class="highlight">
-                        <p><i class="fas fa-lightbulb"></i> O tema UNEARTHED desafia as equipes a pensar como arqueólogos modernos - usando tecnologia de ponta para desvendar mistérios do passado enquanto constroem as habilidades para moldar o futuro.</p>
+                        <p><i class="fas fa-ban"></i> <strong>Regra I306* - Não explore a reinspeção.</strong> As equipes não podem usar o processo de reinspeção em I305 para contornar qualquer outra regra. Esteja preparado para demonstrar que quaisquer modificações estão dentro das exceções permitidas.</p>
                     </div>
                 </div>
             </section>
             
-            <!-- Subseção 2.5 -->
-            <section id="2.5" class="subsection">
+            <!-- Subseção 3.7 -->
+            <section id="3.7" class="subsection">
                 <div class="subsection-header">
-                    <div class="subsection-number">2.5</div>
+                    <div class="subsection-number">3.7</div>
                     <div class="subsection-title">
-                        <h3>Progressão de Torneios</h3>
-                        <div class="subsection-subtitle">Como as equipes avançam na competição</div>
+                        <h3>Violações e Penalidades</h3>
+                        <div class="subsection-subtitle">Consequências por violar regras de elegibilidade e inspeção</div>
                     </div>
                 </div>
                 
                 <div class="content-box">
-                    <p>O sistema de progressão do FIRST Tech Challenge é projetado para permitir que equipes em todos os níveis de experiência participem e avancem através de múltiplos níveis de competição.</p>
+                    <p>Violar regras de elegibilidade e inspeção pode resultar em várias penalidades, desde avisos verbais até desqualificação de partidas e eventos.</p>
                     
                     <div class="table-container">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Nível de Torneio</th>
-                                    <th>Descrição</th>
-                                    <th>Avanço Para</th>
+                                    <th>Regra</th>
+                                    <th>Violation</th>
+                                    <th>Penalidade</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Torneios de Qualificação (QT)</strong></td>
-                                    <td>Eventos de entrada para todas as equipes. Equipes podem participar de até 3 QTs para tentar avançar.</td>
-                                    <td>Super Qualificatórios (SQT) ou Campeonatos Regionais (RCMP)</td>
+                                    <td><strong>I101/I102</strong><br>Equipe não registrada ou sem check-in</td>
+                                    <td>Participar sem estar "pronto para competir"</td>
+                                    <td>Não elegível para participar, avançar ou receber prêmios</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Torneios de Liga (LT)</strong></td>
-                                    <td>Formato de liga com múltiplos encontros. Cada equipe só pode participar de uma liga por temporada.</td>
-                                    <td>Super Qualificatórios (SQT) ou Campeonatos Regionais (RCMP)</td>
+                                    <td><strong>I302</strong><br>Trazer múltiplos robôs</td>
+                                    <td>Inscrever mais de 1 robô</td>
+                                    <td>Aviso Verbal → Cartão Vermelho se não corrigido</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Super Qualificatórios (SQT)</strong></td>
-                                    <td>Nível opcional usado em regiões grandes. Equipes só podem participar de um SQT.</td>
-                                    <td>Campeonatos Regionais (RCMP)</td>
+                                    <td><strong>I303</strong><br>Participar sem inspeção</td>
+                                    <td>Jogar partida sem inspeção aprovada</td>
+                                    <td>Desqualificação (antes da partida) ou Cartão Vermelho (durante)</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Campeonatos Regionais (RCMP)</strong></td>
-                                    <td>Nível mais alto dentro de cada região. Pode ser chamado de Campeonato Estadual, Regional ou Nacional.</td>
-                                    <td>FIRST Championship (FCMP) ou Eventos Premier (FPE)</td>
+                                    <td><strong>I305</strong><br>Modificações sem reinspeção</td>
+                                    <td>Modificar robô sem reinspeção necessária</td>
+                                    <td>Cartão Vermelho se participar de partida</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>FIRST Championship (FCMP)</strong></td>
-                                    <td>Evento mundial que reúne as melhores equipes de todas as regiões.</td>
-                                    <td>Fim da jornada competitiva da temporada</td>
+                                    <td><strong>I306</strong><br>Explorar reinspeção</td>
+                                    <td>Usar reinspeção para contornar regras</td>
+                                    <td>Determinado caso a caso, pode incluir desqualificação</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>I308</strong><br>Inspeção sem estudante</td>
+                                    <td>Inspeção sem membro estudante presente</td>
+                                    <td>Inspeção não continuará até que um estudante esteja presente</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     
                     <div class="content-box red">
-                        <h4><i class="fas fa-exclamation-triangle"></i> Regras Importantes de Progressão:</h4>
+                        <h4><i class="fas fa-gavel"></i> Autoridade dos Inspetores:</h4>
                         <ul>
-                            <li>Equipes só são elegíveis para avançar a partir de eventos dentro de sua região de origem</li>
-                            <li>Equipes podem participar de mais de 3 eventos de nível de entrada, mas só podem avançar a partir de seus primeiros 3</li>
-                            <li>Equipes só podem participar de uma liga por temporada</li>
-                            <li>Equipes só podem participar de um Super Qualificador (SQT)</li>
-                            <li>Avanço para o FIRST Championship é determinado pela sede da FIRST com base em múltiplos fatores</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Subseção 2.6 -->
-            <section id="2.6" class="subsection">
-                <div class="subsection-header">
-                    <div class="subsection-number">2.6</div>
-                    <div class="subsection-title">
-                        <h3>Datas Importantes</h3>
-                        <div class="subsection-subtitle">Marcos críticos da temporada 2025-2026</div>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <p>Manter-se atualizado com as datas importantes da temporada é crucial para o planejamento e sucesso da equipe.</p>
-                    
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Evento</th>
-                                    <th>Descrição</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Setembro 2025</strong></td>
-                                    <td>Kickoff da Temporada</td>
-                                    <td>Revelação do jogo DECODE™ e início oficial da temporada</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>22 de setembro 2025</strong></td>
-                                    <td>Abertura do Sistema Q&A</td>
-                                    <td>Início do período para envio de perguntas sobre regras</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>17 de novembro 2025</strong></td>
-                                    <td>Data Limite de Inscrição</td>
-                                    <td>Último dia para inscrições serem consideradas para alocação de vagas no FIRST Championship</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Nov 2025 - Jan 2026</strong></td>
-                                    <td>Torneios de Qualificação</td>
-                                    <td>Período principal para eventos de qualificação</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Dezembro 2025</strong></td>
-                                    <td>Divulgação de Alocações</td>
-                                    <td>Publicação das alocações de vagas para o FIRST Championship</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Fevereiro 2026</strong></td>
-                                    <td>Super Qualificatórios</td>
-                                    <td>Eventos avançados em regiões maiores</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Março 2026</strong></td>
-                                    <td>Campeonatos Regionais</td>
-                                    <td>Eventos de nível regional/estadual/nacional</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Abril 2026</strong></td>
-                                    <td>FIRST Championship</td>
-                                    <td>Campeonato mundial em local a ser definido</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="highlight">
-                        <p><i class="fas fa-calendar-alt"></i> <strong>Atualizações de Equipe (Team Updates):</strong> Publicadas toda quinta-feira a partir do dia do Kickoff até duas semanas antes do FIRST Championship. Essas atualizações incluem revisões de regras, esclarecimentos e notícias importantes da temporada.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Subseção 2.7 -->
-            <section id="2.7" class="subsection">
-                <div class="subsection-header">
-                    <div class="subsection-number">2.7</div>
-                    <div class="subsection-title">
-                        <h3>Preparação da Equipe</h3>
-                        <div class="subsection-subtitle">Como se preparar para a jornada da temporada</div>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <p>Uma preparação adequada é fundamental para o sucesso na temporada do FIRST Tech Challenge. Aqui estão as etapas recomendadas para equipes novas e experientes.</p>
-                    
-                    <h4><i class="fas fa-clipboard-list"></i> Checklist de Preparação:</h4>
-                    <ul>
-                        <li><strong>Pré-Kickoff (Agosto-Setembro):</strong>
-                            <ul>
-                                <li>Recrutar membros da equipe e mentores</li>
-                                <li>Garantir espaço de construção e recursos</li>
-                                <li>Estabelecer orçamento e buscar patrocínios</li>
-                                <li>Participar de treinamentos e workshops</li>
-                            </ul>
-                        </li>
-                        <li><strong>Pós-Kickoff (Setembro-Outubro):</strong>
-                            <ul>
-                                <li>Analisar minuciosamente o manual de regras</li>
-                                <li>Realizar sessões de brainstorming de design</li>
-                                <li>Desenvolver protótipos e testar conceitos</li>
-                                <li>Começar a construção do robô</li>
-                            </ul>
-                        </li>
-                        <li><strong>Período de Construção (Outubro-Novembro):</strong>
-                            <ul>
-                                <li>Completar a construção do robô</li>
-                                <li>Desenvolver e testar código autônomo e teleoperado</li>
-                                <li>Participar de eventos de prática e scrimmages</li>
-                                <li>Preparar documentação para prêmios de julgamento</li>
-                            </ul>
-                        </li>
-                        <li><strong>Temporada de Competição (Novembro-Março):</strong>
-                            <ul>
-                                <li>Participar de torneios de qualificação</li>
-                                <li>Refinar estratégias com base no desempenho</li>
-                                <li>Manter e melhorar o robô entre eventos</li>
-                                <li>Documentar aprendizados para a próxima temporada</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
-                    <div class="content-box gold">
-                        <h4><i class="fas fa-handshake"></i> Recursos Disponíveis:</h4>
-                        <ul>
-                            <li><strong>Manual de Competição:</strong> Guia completo de regras e procedimentos</li>
-                            <li><strong>Sistema Q&A:</strong> Para esclarecimentos oficiais sobre regras</li>
-                            <li><strong>Recursos Online:</strong> Tutoriais, fóruns e comunidades de equipes</li>
-                            <li><strong>Parceiros de Entrega do Programa (PDPs):</strong> Suporte regional e eventos locais</li>
-                            <li><strong>Eventos de Prática:</strong> Oportunidades para testar robôs antes de competições</li>
+                            <li><strong>Reinspeção:</strong> INSPETORES podem reinspecionar ROBÔS a qualquer momento</li>
+                            <li><strong>Solicitação de Inspeção Alternativa:</strong> As equipes podem solicitar um INSPETOR diferente ou convidar o LRI para participar da inspeção</li>
+                            <li><strong>Paradas de Processo:</strong> O processo de inspeção pode progredir em blocos, pausando para uma equipe fazer correções</li>
+                            <li><strong>Partidas de Prática:</strong> ROBÔS podem participar de PARTIDAS DE PRÁTICA programadas antes de passar na inspeção, sujeito a avaliação de segurança</li>
                         </ul>
                     </div>
                     
                     <div class="highlight">
-                        <p><i class="fas fa-users"></i> Lembre-se: O FIRST Tech Challenge é "Mais do que Robôs®". Além da competição robótica, as equipes devem se preparar para os aspectos de julgamento, que incluem documentação do processo de engenharia, alcance comunitário, sustentabilidade e demonstração dos Valores Fundamentais da FIRST.</p>
+                        <p><i class="fas fa-shield-alt"></i> <strong>Observação de Segurança:</strong> O Consultor Técnico da FIRST (FTA), LRI ou Árbitro Principal pode determinar a qualquer momento que o ROBÔ é inseguro e pode proibir participação adicional em PARTIDAS DE PRÁTICA até que a condição seja corrigida e/ou o ROBÔ passe na inspeção.</p>
                     </div>
                 </div>
             </section>
             
             <!-- Navegação entre Seções -->
             <div class="section-navigation">
-                <a href="secao1.html" class="nav-button prev">
+                <a href="secao2.html" class="nav-button prev">
                     <i class="fas fa-arrow-left"></i>
                     <div>
                         <div class="nav-label">Seção Anterior</div>
-                        <div class="nav-title">Seção 1: Introdução</div>
+                        <div class="nav-title">Seção 2: Visão Geral da Temporada</div>
                     </div>
                 </a>
                 
-                <a href="secao3.html" class="nav-button next">
+                <a href="secao4.html" class="nav-button next">
                     <div>
                         <div class="nav-label">Próxima Seção</div>
-                        <div class="nav-title">Seção 3: Elegibilidade e Inspeção</div>
+                        <div class="nav-title">Seção 4: Avanço</div>
                     </div>
                     <i class="fas fa-arrow-right"></i>
                 </a>
@@ -1500,7 +1516,7 @@
         <div class="copyright">
             <p>FIRST® é uma marca registrada da FIRST (For Inspiration and Recognition of Science and Technology).</p>
             <p>DECODE™ é uma marca registrada da RTX. Este site não é afiliado à FIRST ou RTX.</p>
-            <p>© 2025 - Tradução para Fins Educacionais | Seção 2: Visão Geral da Temporada</p>
+            <p>© 2025 - Tradução para Fins Educacionais | Seção 3: Elegibilidade e Inspeção</p>
         </div>
     </footer>
 
@@ -1513,6 +1529,7 @@
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
         const quickNav = document.getElementById('quickNav');
+        const checklistCheckboxes = document.querySelectorAll('.checklist-checkbox');
         
         // Abrir/fechar sidebar
         sidebarToggle.addEventListener('click', () => {
@@ -1546,6 +1563,13 @@
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Checklist interativo
+        checklistCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.classList.toggle('checked');
             });
         });
         
