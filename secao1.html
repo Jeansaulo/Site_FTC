@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seção 1: Introdução - Manual FTC DECODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-gold: #d4af37;
+            --accent-red: #c41e3a;
+            --text-light: #f5f5f5;
+            --text-gray: #aaaaaa;
+            --section-bg: rgba(26, 26, 26, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(196, 30, 58, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Header e Navegação */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo-icon {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text span {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-red);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Seção Hero */
+        .section-hero {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(196, 30, 58, 0.1), transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.1), transparent 50%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: var(--text-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .section-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .section-hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Conteúdo Principal */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+        }
+        
+        /* Sidebar de Navegação */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sidebar h3 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-nav a:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left-color: var(--accent-gold);
+            padding-left: 20px;
+        }
+        
+        .sidebar-nav a.active {
+            background-color: rgba(196, 30, 58, 0.2);
+            border-left-color: var(--accent-red);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        
+        .sidebar-nav i {
+            color: var(--accent-gold);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .section-indicator {
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            display: inline-block;
+        }
+        
+        /* Conteúdo da Seção */
+        .section-content {
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subsection {
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+        
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .subsection-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .subsection-title h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+        
+        .subsection-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        .content-box {
+            background-color: rgba(10, 10, 10, 0.5);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-gold);
+        }
+        
+        .content-box.red {
+            border-left-color: var(--accent-red);
+        }
+        
+        .content-box.gold {
+            border-left-color: var(--accent-gold);
+        }
+        
+        .content-box h4 {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content-box.red h4 {
+            color: var(--accent-red);
+        }
+        
+        .content-box p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .content-box ul, .content-box ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .content-box li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--accent-gold);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        .highlight p {
+            color: var(--text-light);
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th {
+            background-color: rgba(196, 30, 58, 0.2);
+            color: var(--accent-gold);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+        
+        tr:hover {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        
+        /* Navegação entre Seções */
+        .section-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 30px;
+            background-color: rgba(26, 26, 26, 0.8);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            width: 48%;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(196, 30, 58, 0.2);
+            border-color: var(--accent-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-button.prev {
+            text-align: left;
+        }
+        
+        .nav-button.next {
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .nav-button i {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+        }
+        
+        .nav-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-black);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            border-top: 2px solid var(--accent-gold);
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-section p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s, padding-left 0.3s;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            max-width: 1400px;
+            margin: 40px auto 0;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: transform 0.3s, opacity 0.3s;
+                border-bottom: 2px solid var(--accent-gold);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                display: block;
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+            
+            .section-hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section-content {
+                padding: 25px;
+            }
+            
+            .section-navigation {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-button {
+                width: 100%;
+            }
+        }
+        
+        /* Animações de entrada */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Seção 1: Introdução</h1>
+                    <div class="breadcrumb">
+                        <a href="index.html"><i class="fas fa-home"></i> Página Inicial</a> 
+                        <i class="fas fa-chevron-right"></i> 
+                        <span>Seção 1: Introdução</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                    <li><a href="#manual"><i class="fas fa-book"></i> Manual</a></li>
+                    <li><a href="#resources"><i class="fas fa-tools"></i> Recursos</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="section-hero">
+        <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 60%; left: 85%; width: 30px; height: 30px; animation-delay: 1s;"></div>
+        <div class="floating-element" style="top: 80%; left: 15%; width: 15px; height: 15px; animation-delay: 2s;"></div>
+        
+        <div class="hero-content">
+            <div class="section-badge">
+                <i class="fas fa-book-open"></i> SEÇÃO 1
+            </div>
+            <h2>Introdução ao FIRST Tech Challenge</h2>
+            <p>Conheça a FIRST®, seus valores fundamentais, e entenda a estrutura do manual de competição para a temporada DECODE™ 2025-2026.</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="content-wrapper">
+            <!-- Sidebar de Navegação -->
+            <aside class="sidebar">
+                <h3><i class="fas fa-list-ul"></i> Conteúdo da Seção</h3>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#1.1" class="active"><i class="fas fa-chevron-right"></i> 1.1 Sobre a FIRST®</a></li>
+                        <li><a href="#1.2"><i class="fas fa-chevron-right"></i> 1.2 FIRST® Tech Challenge</a></li>
+                        <li><a href="#1.3"><i class="fas fa-chevron-right"></i> 1.3 Ethos e Valores Fundamentais</a></li>
+                        <li><a href="#1.4"><i class="fas fa-chevron-right"></i> 1.4 Espírito de Voluntariado</a></li>
+                        <li><a href="#1.5"><i class="fas fa-chevron-right"></i> 1.5 Acessibilidade e Inclusão</a></li>
+                        <li><a href="#1.6"><i class="fas fa-chevron-right"></i> 1.6 Este Documento e suas Convenções</a></li>
+                        <li><a href="#1.7"><i class="fas fa-chevron-right"></i> 1.7 Traduções e Outras Versões</a></li>
+                        <li><a href="#1.8"><i class="fas fa-chevron-right"></i> 1.8 Atualizações da Equipe</a></li>
+                        <li><a href="#1.9"><i class="fas fa-chevron-right"></i> 1.9 Sistema de Perguntas e Respostas</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="section-indicator">
+                    <i class="fas fa-exclamation-circle"></i> Seção 1 de 16
+                </div>
+            </aside>
+
+            <!-- Conteúdo da Seção -->
+            <main class="section-content">
+                <!-- Subseção 1.1 -->
+                <section id="1.1" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.1</div>
+                        <div class="subsection-title">
+                            <h3>Sobre a FIRST®</h3>
+                            <div class="subsection-subtitle">For Inspiration and Recognition of Science and Technology</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>A FIRST® (For Inspiration and Recognition of Science and Technology) foi fundada pelo inventor Dean Kamen para inspirar o interesse dos jovens pela ciência e tecnologia. Como uma comunidade de robótica que prepara os jovens para o futuro, a FIRST é a principal organização sem fins lucrativos do mundo que atende jovens e promove a educação STEM.</p>
+                        
+                        <p>Há 30 anos, a FIRST combina o rigor da aprendizagem STEM com a diversão e a emoção dos esportes tradicionais e a inspiração que vem da comunidade por meio de programas que têm um impacto comprovado na aprendizagem, no interesse e no desenvolvimento de habilidades dentro e fora da sala de aula.</p>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-quote-left"></i> A FIRST existe para preparar os jovens de hoje para o mundo de amanhã. <i class="fas fa-quote-right"></i></p>
+                        </div>
+                        
+                        <h4><i class="fas fa-list"></i> Programas da FIRST por Faixa Etária:</h4>
+                        <ul>
+                            <li><strong>FIRST® Robotics Competition:</strong> 9º-12º ano, idades sugeridas 14-18 anos</li>
+                            <li><strong>FIRST® Tech Challenge:</strong> 7º-12º ano, idades sugeridas 12-18 anos</li>
+                            <li><strong>FIRST® LEGO® League:</strong> Educação Infantil ao 8º ano, idades 4-16 anos
+                                <ul>
+                                    <li>FIRST® LEGO® League Challenge: 4º-8º ano (idades 9-16, varia por país)</li>
+                                    <li>FIRST® LEGO® League Explore: 2º-4º ano (idades 6-10)</li>
+                                    <li>FIRST® LEGO® League Discover: Educação Infantil ao 1º ano (idades 4-6)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Propósito</th>
+                                        <th>Visão</th>
+                                        <th>Missão</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>A FIRST existe para preparar os jovens de hoje para o mundo de amanhã.</td>
+                                        <td>Transformar nossa cultura criando um mundo onde a ciência e a tecnologia são celebradas e onde os jovens sonham em se tornar líderes em ciência e tecnologia.</td>
+                                        <td>A missão da FIRST é fornecer programas de robótica que mudam vidas e dão aos jovens as habilidades, confiança e resiliência para construir um mundo melhor.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.2 -->
+                <section id="1.2" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.2</div>
+                        <div class="subsection-title">
+                            <h3>FIRST® Tech Challenge</h3>
+                            <div class="subsection-subtitle">Mais do que Robôs®</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>O FIRST Tech Challenge é um programa centrado no aluno que se concentra em dar aos jovens uma experiência única e estimulante. Todo setembro, em um evento conhecido como "Kickoff", um novo desafio de jogo é apresentado.</p>
+                        
+                        <p>Uma vez que o desafio é divulgado, pequenas equipes de alunos, com a ajuda de mentores, projetam, constroem, testam e programam robôs que devem executar uma série de tarefas do jogo de forma autônoma e sob controle do operador.</p>
+                        
+                        <p>Estas equipes então testam suas habilidades em uma série de torneios que combinam a emoção de um esporte competitivo, enquanto incentivam os alunos a se ajudarem e aprenderem uns com os outros.</p>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-graduation-cap"></i> Participantes e ex-alunos dos programas da FIRST ganham acesso a oportunidades de descoberta educacional e de carreira, conexões com bolsas de estudo e empregadores exclusivos, e um lugar na comunidade da FIRST para a vida toda.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.3 -->
+                <section id="1.3" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.3</div>
+                        <div class="subsection-title">
+                            <h3>Ethos e Valores Fundamentais da FIRST</h3>
+                            <div class="subsection-subtitle">A base de tudo o que fazemos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <h4><i class="fas fa-star"></i> Valores Fundamentais</h4>
+                        <p>Os Valores Fundamentais da FIRST são fundamentais para a FIRST e exclusivos de seus programas. Eles enfatizam o espírito esportivo amigável, o respeito pelas contribuições dos outros, o trabalho em equipe, a aprendizagem e o envolvimento com a comunidade e são parte do nosso compromisso em promover, cultivar e preservar uma cultura de unidade.</p>
+                        
+                        <div class="content-box gold">
+                            <h4><i class="fas fa-compass"></i> Descoberta</h4>
+                            <p>Exploramos novas habilidades e ideias.</p>
+                        </div>
+                        
+                        <div class="content-box gold">
+                            <h4><i class="fas fa-lightbulb"></i> Inovação</h4>
+                            <p>Usamos criatividade e persistência para resolver problemas.</p>
+                        </div>
+                        
+                        <div class="content-box gold">
+                            <h4><i class="fas fa-handshake"></i> Impacto</h4>
+                            <p>Aplicamos o que aprendemos para melhorar nosso mundo.</p>
+                        </div>
+                        
+                        <div class="content-box gold">
+                            <h4><i class="fas fa-users"></i> Inclusão</h4>
+                            <p>Respeitamos uns aos outros e abraçamos nossas diferenças.</p>
+                        </div>
+                        
+                        <div class="content-box gold">
+                            <h4><i class="fas fa-people-group"></i> Trabalho em Equipe</h4>
+                            <p>Somos mais fortes quando trabalhamos juntos.</p>
+                        </div>
+                        
+                        <div class="content-box gold">
+                            <h4><i class="fas fa-face-smile"></i> Diversão</h4>
+                            <p>Nós nos divertimos e celebramos o que fazemos!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <h4><i class="fas fa-award"></i> Profissionalismo Gracioso®</h4>
+                        <p>O Profissionalismo Gracioso® é parte do ethos da FIRST. É uma maneira de fazer as coisas que incentiva o trabalho de alta qualidade, enfatiza o valor dos outros e respeita os indivíduos e a comunidade.</p>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-quote-left"></i> O espírito da FIRST incentiva a realização de um trabalho de alta qualidade e bem fundamentado de uma maneira que faça todos se sentirem valorizados. O Profissionalismo Gracioso parece ser um bom descritor para parte do ethos da FIRST. É parte do que torna a FIRST diferente e maravilhosa. <i class="fas fa-quote-right"></i><br>- Dr. Woodie Flowers, (1943 – 2019) Conselheiro Distinto da FIRST</p>
+                        </div>
+                        
+                        <p>É uma boa ideia gastar tempo revisando este conceito com sua equipe e reforçando-o regularmente. Recomendamos fornecer à sua equipe exemplos reais de Profissionalismo Gracioso na prática.</p>
+                    </div>
+                    
+                    <div class="content-box">
+                        <h4><i class="fas fa-handshake-angle"></i> Coopertition®</h4>
+                        <p>Na FIRST, a Coopertition® é demonstrar bondade e respeito incondicionais diante de uma competição acirrada. A Coopertition é fundamentada no conceito e filosofia de que as equipes podem e devem se ajudar e cooperar umas com as outras, mesmo enquanto competem.</p>
+                        
+                        <p>A Coopertition envolve aprender com colegas de equipe e mentores. Coopertition significa competir sempre, mas ajudar e capacitar os outros quando possível.</p>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.4 -->
+                <section id="1.4" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.4</div>
+                        <div class="subsection-title">
+                            <h3>Espírito de Voluntariado</h3>
+                            <div class="subsection-subtitle">A força vital da FIRST</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>A FIRST só pode esperar alcançar nossa missão de fornecer programas de robótica que mudam vidas e dão aos jovens as habilidades, confiança e resiliência para construir um mundo melhor com a sua ajuda.</p>
+                        
+                        <p>Existem duas frases que impulsionam e motivam os indivíduos que dedicam seu tempo como voluntários para a FIRST: "Retribuir" e "Passe Adiante".</p>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-heart"></i> Para nossos membros da equipe e mentores: lembrem-se de que os voluntários com quem vocês interagem estão dedicando seu bem mais precioso - seu tempo - para garantir que todas as equipes tenham uma competição gratificante, divertida e memorável.</p>
+                        </div>
+                        
+                        <p>Os voluntários são a força vital da FIRST, e sem eles, a FIRST não estaria onde está hoje. Nós os incentivamos a lembrar que o Profissionalismo Gracioso é parte do ethos da FIRST.</p>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.5 -->
+                <section id="1.5" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.5</div>
+                        <div class="subsection-title">
+                            <h3>Acessibilidade e Inclusão</h3>
+                            <div class="subsection-subtitle">STEM para Todos™</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>A FIRST está comprometida com o STEM para Todos™ e, como tal, a FIRST faz adaptações razoáveis para pessoas com deficiência que precisam e solicitam adaptações.</p>
+                        
+                        <p>Se um participante precisa de adaptação para um evento, entre em contato com sua liderança local antes do evento para que eles possam ajudar a garantir que a adaptação seja fornecida.</p>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-universal-access"></i> A liderança local pode fazer exceções às regras para permitir adaptações razoáveis, desde que as exceções não criem um ônus indevido ou causem preocupações de segurança.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.6 -->
+                <section id="1.6" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.6</div>
+                        <div class="subsection-title">
+                            <h3>Este Documento e suas Convenções</h3>
+                            <div class="subsection-subtitle">Como ler e interpretar o manual</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>O Manual de Competição 2025-2026 é um recurso para todas as equipes do FIRST Tech Challenge para informações específicas da temporada 2025-2026 e do jogo DECODE™ apresentado pela RTX.</p>
+                        
+                        <h4><i class="fas fa-book-open-reader"></i> O público encontrará os seguintes detalhes:</h4>
+                        <ul>
+                            <li>uma visão geral do jogo DECODE,</li>
+                            <li>detalhes sobre o campo de jogo DECODE,</li>
+                            <li>uma descrição de como jogar o jogo DECODE,</li>
+                            <li>regras (relacionadas à segurança, conduta, jogo, inspeção, evento, etc.),</li>
+                            <li>regras de construção do ROBÔ, e</li>
+                            <li>uma descrição de como as equipes avançam nos torneios 2025-2026 e ao longo da temporada.</li>
+                        </ul>
+                        
+                        <div class="content-box red">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Interpretação do Texto</h4>
+                            <p>A intenção deste manual é que o texto signifique exatamente, e apenas, o que ele diz. Evite interpretar o texto com base em suposições sobre intenção, implementação de regras passadas ou como uma situação poderia ser na "vida real". Não há requisitos ou restrições ocultas.</p>
+                        </div>
+                        
+                        <h4><i class="fas fa-palette"></i> Convenções Visuais:</h4>
+                        <ul>
+                            <li><strong>Texto em azul sublinhado:</strong> Links para outras seções e referências de regras</li>
+                            <li><strong>Caixas laranja:</strong> Avisos, cautelas e notas importantes</li>
+                            <li><strong>Texto em verde em negrito:</strong> Regras "evergreen" (persistentes entre temporadas)</li>
+                            <li><strong>Texto em laranja em negrito:</strong> Cabeçalhos de outras regras</li>
+                            <li><strong>MAIÚSCULAS:</strong> Termos definidos no Glossário (Seção 16)</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-ruler"></i> As dimensões imperiais são seguidas por dimensões métricas comparáveis entre parênteses. As conversões métricas são oferecidas apenas para referência conveniente e não anulam ou substituem as dimensões imperiais apresentadas neste manual.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.7 -->
+                <section id="1.7" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.7</div>
+                        <div class="subsection-title">
+                            <h3>Traduções e Outras Versões</h3>
+                            <div class="subsection-subtitle">Versão oficial e traduções</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>O Manual de Competição do FIRST Tech Challenge é originalmente e oficialmente escrito em inglês e ocasionalmente é traduzido para outros idiomas para beneficiar as equipes do FIRST Tech Challenge cuja língua nativa pode não ser o inglês.</p>
+                        
+                        <div class="content-box red">
+                            <h4><i class="fas fa-language"></i> Versão Autoritativa</h4>
+                            <p>No caso de uma regra ou descrição ser modificada em uma versão alternativa deste manual, a versão mais recente em PDF em inglês publicada na página de Materiais do Jogo e da Temporada é a versão autoritativa.</p>
+                        </div>
+                        
+                        <p>Recursos adicionais, como um Chatbot de IA do FIRST Tech Challenge, são fornecidos como uma ferramenta útil, mas o Manual de Competição é a autoridade final.</p>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.8 -->
+                <section id="1.8" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.8</div>
+                        <div class="subsection-title">
+                            <h3>Atualizações da Equipe</h3>
+                            <div class="subsection-subtitle">Mantenha-se informado sobre mudanças</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>As Atualizações da Equipe são usadas para notificar a comunidade do FIRST Tech Challenge sobre revisões da documentação oficial da temporada (por exemplo, o manual, desenhos) ou notícias importantes da temporada.</p>
+                        
+                        <h4><i class="fas fa-calendar-alt"></i> Programação das Atualizações:</h4>
+                        <ul>
+                            <li>Toda quinta-feira começando no dia do Kickoff e terminando duas semanas antes do FIRST Championship.</li>
+                            <li>As Atualizações da Equipe são postadas na página da web do Jogo e da Temporada e geralmente são postadas até 13h (Horário do Leste).</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <p><i class="fas fa-highlighter"></i> <strong>Formatação das Atualizações:</strong><br>
+                            • <span style="background-color: yellow; color: black; padding: 2px 5px;">Adições são destacadas em amarelo</span><br>
+                            • <span style="text-decoration: line-through;">Exclusões são indicadas com um traço</span></p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Subseção 1.9 -->
+                <section id="1.9" class="subsection">
+                    <div class="subsection-header">
+                        <div class="subsection-number">1.9</div>
+                        <div class="subsection-title">
+                            <h3>Sistema de Perguntas e Respostas</h3>
+                            <div class="subsection-subtitle">Q&A oficial da FIRST</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-box">
+                        <p>O Sistema de Perguntas e Respostas (Q&A) é um recurso para as equipes fazerem perguntas sobre jogabilidade, regras de competição, julgamento e avanço, regras de construção de ROBÔS e configuração do CAMPO.</p>
+                        
+                        <h4><i class="fas fa-calendar"></i> Datas Importantes:</h4>
+                        <ul>
+                            <li><strong>Abertura do Q&A:</strong> 22 de setembro de 2025, 12:00 ET</li>
+                            <li><strong>Respostas:</strong> Começam todas as segundas-feiras</li>
+                            <li><strong>Fechamento:</strong> Quintas-feiras às 17:00 ET</li>
+                        </ul>
+                        
+                        <div class="content-box red">
+                            <h4><i class="fas fa-gavel"></i> Autoridade Final</h4>
+                            <p>As respostas no Q&A não substituem o texto do manual, embora todos os esforços sejam feitos para eliminar inconsistências entre os dois. Os ÁRBITROS e INSPETORES são a autoridade final sobre as regras.</p>
+                        </div>
+                        
+                        <h4><i class="fas fa-question-circle"></i> Tipos de Perguntas que NÃO são respondidas:</h4>
+                        <ul>
+                            <li>Julgamentos sobre situações vagas</li>
+                            <li>Desafiar decisões tomadas em eventos passados</li>
+                            <li>Revisões de design de um sistema de ROBÔ para legalidade</li>
+                            <li>Perguntas excessivamente amplas, vagas e/ou sem referências a regras</li>
+                        </ul>
+                        
+                        <h4><i class="fas fa-check-circle"></i> Exemplos de Boas Perguntas:</h4>
+                        <ul>
+                            <li>"Um dispositivo que estamos considerando usar no ROBÔ vem com fio roxo AWG 40, isso está em conformidade com R?? e R??"</li>
+                            <li>"Não temos certeza de como interpretar a Regra G?? se aplica se o ROBÔ azul A faz X e o ROBÔ vermelho B faz Y, você pode esclarecer?"</li>
+                            <li>"Se um ROBÔ faz esta ação específica, ele está fazendo o que este termo definido está descrevendo?"</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Navegação entre Seções -->
+                <div class="section-navigation">
+                    <a href="index.html" class="nav-button prev">
+                        <i class="fas fa-arrow-left"></i>
+                        <div>
+                            <div class="nav-label">Voltar para</div>
+                            <div class="nav-title">Página Inicial</div>
+                        </div>
+                    </a>
+                    
+                    <a href="secao2.html" class="nav-button next">
+                        <div>
+                            <div class="nav-label">Próxima Seção</div>
+                            <div class="nav-title">Seção 2: Visão Geral da Temporada</div>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>FIRST Tech Challenge</h3>
+                <p>Tradução não-oficial do Manual de Competição FIRST Tech Challenge 2025-2026. DECODE™ apresentado por RTX.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Seções do Manual</h3>
+                <ul class="footer-links">
+                    <li><a href="secao1.html">Seção 1: Introdução</a></li>
+                    <li><a href="secao2.html">Seção 2: Visão Geral da Temporada</a></li>
+                    <li><a href="secao3.html">Seção 3: Elegibilidade e Inspeção</a></li>
+                    <li><a href="secao4.html">Seção 4: Avanço</a></li>
+                    <li><a href="secao5.html">Seção 5: Regras do Evento</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Página Inicial</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc" target="_blank">Site Oficial da FIRST</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc/game-and-season" target="_blank">Jogo e Temporada</a></li>
+                    <li><a href="https://ftc-events.firstinspires.org/" target="_blank">Eventos FTC</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>FIRST® é uma marca registrada da FIRST (For Inspiration and Recognition of Science and Technology).</p>
+            <p>DECODE™ é uma marca registrada da RTX. Este site não é afiliado à FIRST ou RTX.</p>
+            <p>© 2025 - Tradução para Fins Educacionais | Seção 1: Introdução</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu móvel
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Navegação suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Atualizar link ativo na sidebar
+                    document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Rolagem suave
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Ativar link da sidebar ao rolar
+        const sections = document.querySelectorAll('.subsection');
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        
+        function activateLinkOnScroll() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', activateLinkOnScroll);
+        
+        // Animação ao rolar
+        const animateElements = document.querySelectorAll('.subsection');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Elementos flutuantes dinâmicos
+        function createFloatingElements() {
+            const hero = document.querySelector('.section-hero');
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = `${Math.random() * 90 + 5}%`;
+                element.style.top = `${Math.random() * 80 + 10}%`;
+                element.style.width = `${Math.random() * 20 + 10}px`;
+                element.style.height = element.style.width;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                element.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+                hero.appendChild(element);
+            }
+        }
+        
+        createFloatingElements();
+    </script>
+</body>
+</html>

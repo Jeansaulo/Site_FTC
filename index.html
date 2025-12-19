@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRST Tech Challenge - Manual de Regras DECODE 2025-2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-gold: #d4af37;
+            --accent-red: #c41e3a;
+            --text-light: #f5f5f5;
+            --text-gray: #aaaaaa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header e Navegação */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo-icon {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text span {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(196, 30, 58, 0.1), transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.1), transparent 50%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Seções */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-red), var(--accent-gold));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+        
+        /* Cards de Conteúdo */
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background-color: var(--secondary-black);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+            border-color: var(--accent-gold);
+        }
+        
+        .card-icon {
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+        }
+        
+        .card-content p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .card-link {
+            color: var(--accent-red);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s;
+        }
+        
+        .card-link:hover {
+            gap: 10px;
+        }
+        
+        /* Tabela de Conteúdo */
+        .toc-container {
+            background-color: var(--secondary-black);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            border-left: 5px solid var(--accent-red);
+        }
+        
+        .toc-container h3 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .toc-list {
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-list li {
+            margin-bottom: 12px;
+            break-inside: avoid;
+        }
+        
+        .toc-list a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: color 0.3s, padding-left 0.3s;
+        }
+        
+        .toc-list a:hover {
+            color: var(--accent-gold);
+            padding-left: 10px;
+        }
+        
+        .toc-list i {
+            color: var(--accent-red);
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-black);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            border-top: 2px solid var(--accent-gold);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-section p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s, padding-left 0.3s;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: transform 0.3s, opacity 0.3s;
+                border-bottom: 2px solid var(--accent-gold);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                display: block;
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animações de entrada */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>FTC DECODE</h1>
+                    <span>Manual de Regras 2025-2026</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                    <li><a href="#manual"><i class="fas fa-book"></i> Manual</a></li>
+                    <li><a href="#resources"><i class="fas fa-tools"></i> Recursos</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 60%; left: 85%; width: 30px; height: 30px; animation-delay: 1s;"></div>
+        <div class="floating-element" style="top: 80%; left: 15%; width: 15px; height: 15px; animation-delay: 2s;"></div>
+        
+        <div class="hero-content">
+            <h2>Manual de Regras FIRST® Tech Challenge</h2>
+            <p>Tradução completa do manual oficial da temporada DECODE™ 2025-2026 apresentada por RTX. Acesse todas as regras do jogo, construção do robô, elegibilidade, premiações e torneios em português.</p>
+            <a href="#manual" class="cta-button">Explorar Manual <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Sobre o Manual -->
+    <section class="section" id="about">
+        <div class="section-title animate-on-scroll">
+            <h2>Sobre o Manual</h2>
+            <p>Este site oferece uma tradução completa e não-oficial do Manual de Competição FIRST Tech Challenge 2025-2026 para equipes de língua portuguesa.</p>
+        </div>
+        
+        <div class="content-cards">
+            <div class="card animate-on-scroll">
+                <div class="card-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Tradução Completa</h3>
+                    <p>Todo o conteúdo do manual oficial foi traduzido para o português, mantendo a precisão técnica dos termos e regras originais.</p>
+                    <a href="#manual" class="card-link">Acessar tradução <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <div class="card animate-on-scroll">
+                <div class="card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="card-content">
+                    <h3>DECODE™ por RTX</h3>
+                    <p>Regras detalhadas do jogo da temporada 2025-2026, incluindo elementos de pontuação, arena, e funcionamento das partidas.</p>
+                    <a href="#game-rules" class="card-link">Ver regras do jogo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            
+            <div class="card animate-on-scroll">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Premiações e Classificação</h3>
+                    <p>Detalhes sobre todos os prêmios, critérios de julgamento e sistema de avanço nas competições.</p>
+                    <a href="#awards" class="card-link">Ver premiações <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Índice do Manual -->
+    <section class="section" id="manual">
+        <div class="section-title animate-on-scroll">
+            <h2>Índice do Manual</h2>
+            <p>Navegue por todas as seções do manual de regras FIRST Tech Challenge 2025-2026</p>
+        </div>
+        
+        <div class="toc-container animate-on-scroll">
+            <h3>Conteúdo Completo</h3>
+            <ul class="toc-list">
+                <li><a href="secao1.html"><i class="fas fa-angle-right"></i> 1. Introdução</a></li>
+                <li><a href="#section2"><i class="fas fa-angle-right"></i> 2. Visão Geral da Temporada</a></li>
+                <li><a href="#section3"><i class="fas fa-angle-right"></i> 3. Elegibilidade e Inspeção</a></li>
+                <li><a href="#section4"><i class="fas fa-angle-right"></i> 4. Avanço nas Competições</a></li>
+                <li><a href="#section5"><i class="fas fa-angle-right"></i> 5. Regras do Evento</a></li>
+                <li><a href="#section6"><i class="fas fa-angle-right"></i> 6. Premiações</a></li>
+                <li><a href="#section7"><i class="fas fa-angle-right"></i> 7. Reconhecimento de Patrocinadores</a></li>
+                <li><a href="#section8"><i class="fas fa-angle-right"></i> 8. Visão Geral do Jogo</a></li>
+                <li><a href="#section9"><i class="fas fa-angle-right"></i> 9. Arena</a></li>
+                <li><a href="#section10"><i class="fas fa-angle-right"></i> 10. Detalhes do Jogo</a></li>
+                <li><a href="#section11"><i class="fas fa-angle-right"></i> 11. Regras do Jogo</a></li>
+                <li><a href="#section12"><i class="fas fa-angle-right"></i> 12. Regras de Construção do Robô</a></li>
+                <li><a href="#section13"><i class="fas fa-angle-right"></i> 13. Torneio</a></li>
+                <li><a href="#section14"><i class="fas fa-angle-right"></i> 14. Torneios de Liga</a></li>
+                <li><a href="#section15"><i class="fas fa-angle-right"></i> 15. Campeonato FIRST</a></li>
+                <li><a href="#section16"><i class="fas fa-angle-right"></i> 16. Glossário</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section class="section" id="resources">
+        <div class="section-title animate-on-scroll">
+            <h2>Recursos Adicionais</h2>
+            <p>Materiais complementares para ajudar sua equipe a entender melhor as regras e se preparar para a competição</p>
+        </div>
+        
+        <div class="content-cards">
+            <div class="card animate-on-scroll">
+                <div class="card-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Manual Original</h3>
+                    <p>Acesso ao manual oficial em inglês para referência e comparação com a tradução.</p>
+                    <a href="#" class="card-link">Baixar PDF <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+            
+            <div class="card animate-on-scroll">
+                <div class="card-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Vídeos Explicativos</h3>
+                    <p>Vídeos que explicam conceitos complexos e demonstram aplicações das regras.</p>
+                    <a href="#" class="card-link">Assistir vídeos <i class="fas fa-play-circle"></i></a>
+                </div>
+            </div>
+            
+            <div class="card animate-on-scroll">
+                <div class="card-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="card-content">
+                    <h3>FAQ e Dúvidas</h3>
+                    <p>Perguntas frequentes sobre regras e suas interpretações para situações específicas.</p>
+                    <a href="#" class="card-link">Ver FAQ <i class="fas fa-search"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="section" id="contact">
+        <div class="section-title animate-on-scroll">
+            <h2>Contato</h2>
+            <p>Esta é uma tradução não-oficial. Para questões oficiais sobre regras, consulte os canais da FIRST.</p>
+        </div>
+        
+        <div class="content-cards">
+            <div class="card animate-on-scroll" style="grid-column: span 2; max-width: 800px; margin: 0 auto;">
+                <div class="card-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Aviso de Tradução Não-Oficial</h3>
+                    <p>Este site fornece uma tradução para referência das equipes de língua portuguesa. Em caso de conflito entre esta tradução e o manual oficial em inglês, a versão em inglês publicada no site da FIRST tem prioridade. Para questões oficiais sobre regras, utilize o sistema de Q&A da FIRST ou contate customerservice@firstinspires.org.</p>
+                    <p>O manual oficial em inglês está disponível em: <a href="https://www.firstinspires.org/robotics/ftc" style="color: var(--accent-gold);">firstinspires.org/robotics/ftc</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>FTC DECODE</h3>
+                <p>Tradução não-oficial do Manual de Competição FIRST Tech Challenge 2025-2026 para a comunidade lusófona.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre o Manual</a></li>
+                    <li><a href="#manual">Índice Completo</a></li>
+                    <li><a href="#resources">Recursos</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>FIRST Tech Challenge</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.firstinspires.org/robotics/ftc" target="_blank">Site Oficial</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc/game-and-season" target="_blank">Jogo e Temporada</a></li>
+                    <li><a href="https://ftc-events.firstinspires.org/" target="_blank">Eventos FTC</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc/contact" target="_blank">Contato FIRST</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>FIRST® é uma marca registrada da FIRST (For Inspiration and Recognition of Science and Technology).</p>
+            <p>DECODE™ é uma marca registrada da RTX. Este site não é afiliado à FIRST ou RTX.</p>
+            <p>© 2025 - Tradução para Fins Educacionais</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu móvel
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Animação ao rolar
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Elementos flutuantes dinâmicos
+        function createFloatingElements() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = `${Math.random() * 90 + 5}%`;
+                element.style.top = `${Math.random() * 80 + 10}%`;
+                element.style.width = `${Math.random() * 20 + 10}px`;
+                element.style.height = element.style.width;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                element.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+                hero.appendChild(element);
+            }
+        }
+        
+        createFloatingElements();
+        
+        // Suavizar rolagem para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
