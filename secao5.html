@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seção 5: Regras do Evento - Manual FTC DECODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-gold: #d4af37;
+            --accent-red: #c41e3a;
+            --text-light: #f5f5f5;
+            --text-gray: #aaaaaa;
+            --section-bg: rgba(26, 26, 26, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(196, 30, 58, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Header e Navegação */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo-icon {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text span {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-red);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Botão da Sidebar */
+        .sidebar-toggle {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 998;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sidebar-toggle:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Seção Hero */
+        .section-hero {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(196, 30, 58, 0.1), transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.1), transparent 50%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: var(--text-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .section-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .section-hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Conteúdo Principal */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Sidebar de Navegação */
+        .sidebar {
+            position: fixed;
+            left: -350px;
+            top: 0;
+            height: 100vh;
+            width: 320px;
+            background-color: var(--primary-black);
+            z-index: 999;
+            padding: 100px 25px 40px;
+            border-right: 2px solid var(--accent-gold);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .sidebar-header h3 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .close-sidebar:hover {
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 12px;
+        }
+        
+        .sidebar-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-nav a:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left-color: var(--accent-gold);
+            padding-left: 25px;
+        }
+        
+        .sidebar-nav a.active {
+            background-color: rgba(196, 30, 58, 0.2);
+            border-left-color: var(--accent-red);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        
+        .sidebar-nav i {
+            color: var(--accent-gold);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .section-indicator {
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Conteúdo da Seção */
+        .section-content {
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .subsection {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+        
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+        
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .subsection-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .subsection-title h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+        
+        .subsection-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        .content-box {
+            background-color: rgba(10, 10, 10, 0.5);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-gold);
+        }
+        
+        .content-box.red {
+            border-left-color: var(--accent-red);
+        }
+        
+        .content-box.gold {
+            border-left-color: var(--accent-gold);
+        }
+        
+        .content-box h4 {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content-box.red h4 {
+            color: var(--accent-red);
+        }
+        
+        .content-box p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .content-box ul, .content-box ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .content-box li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--accent-gold);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        .highlight p {
+            color: var(--text-light);
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .rule-badge {
+            display: inline-block;
+            background-color: var(--accent-red);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .rule-item {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            border-left: 3px solid var(--accent-gold);
+        }
+        
+        .rule-item strong {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+        
+        /* Índice de Navegação Rápida */
+        .quick-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 997;
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+        .quick-nav.active {
+            display: block;
+        }
+        
+        .quick-nav h4 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .quick-nav ul {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .quick-nav li {
+            margin-bottom: 8px;
+        }
+        
+        .quick-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .quick-nav a:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+        }
+        
+        .quick-nav a.active {
+            background-color: rgba(196, 30, 58, 0.2);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        
+        /* Navegação entre Seções */
+        .section-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 30px;
+            background-color: rgba(26, 26, 26, 0.8);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            width: 48%;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(196, 30, 58, 0.2);
+            border-color: var(--accent-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-button.prev {
+            text-align: left;
+        }
+        
+        .nav-button.next {
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .nav-button i {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+        }
+        
+        .nav-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-black);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            border-top: 2px solid var(--accent-gold);
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-section p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s, padding-left 0.3s;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            max-width: 1400px;
+            margin: 40px auto 0;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .quick-nav {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: transform 0.3s, opacity 0.3s;
+                border-bottom: 2px solid var(--accent-gold);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                display: block;
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+            
+            .section-hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section-content {
+                padding: 25px;
+            }
+            
+            .section-navigation {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-button {
+                width: 100%;
+            }
+            
+            .sidebar-toggle {
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .sidebar {
+                width: 280px;
+                padding: 90px 20px 40px;
+            }
+        }
+        
+        /* Animações de entrada */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Seção 5: Regras do Evento</h1>
+                    <div class="breadcrumb">
+                        <a href="index.html"><i class="fas fa-home"></i> Página Inicial</a> 
+                        <i class="fas fa-chevron-right"></i> 
+                        <span>Seção 5: Regras do Evento</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                    <li><a href="#manual"><i class="fas fa-book"></i> Manual</a></li>
+                    <li><a href="#resources"><i class="fas fa-tools"></i> Recursos</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Botão para abrir sidebar -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-list-ul"></i>
+    </button>
+    
+    <!-- Overlay para fechar sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar de Navegação -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-list-ul"></i> Conteúdo da Seção</h3>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#5.0"><i class="fas fa-chevron-right"></i> 5.0 Visão Geral</a></li>
+                <li><a href="#5.1"><i class="fas fa-chevron-right"></i> 5.1 Regras Gerais</a></li>
+                <li><a href="#5.2"><i class="fas fa-chevron-right"></i> 5.2 Máquinas e Espaços</a></li>
+                <li><a href="#5.3"><i class="fas fa-chevron-right"></i> 5.3 Regras de Wireless</a></li>
+                <li><a href="#5.4"><i class="fas fa-chevron-right"></i> 5.4 Load-In</a></li>
+                <li><a href="#5.5"><i class="fas fa-chevron-right"></i> 5.5 Pits</a></li>
+                <li><a href="#5.6"><i class="fas fa-chevron-right"></i> 5.6 Carrinhos de ROBÔ</a></li>
+                <li><a href="#5.7"><i class="fas fa-chevron-right"></i> 5.7 Cerimônias</a></li>
+                <li><a href="#5.8"><i class="fas fa-chevron-right"></i> 5.8 Nas Arquibancadas</a></li>
+            </ul>
+        </nav>
+        
+        <div class="section-indicator">
+            <i class="fas fa-exclamation-circle"></i> Seção 5 de 16
+        </div>
+    </aside>
+    
+    <!-- Índice de Navegação Rápida -->
+    <div class="quick-nav" id="quickNav">
+        <h4>Navegação Rápida</h4>
+        <ul>
+            <li><a href="#5.0">5.0 Visão Geral</a></li>
+            <li><a href="#5.1">5.1 Regras Gerais</a></li>
+            <li><a href="#5.2">5.2 Máquinas</a></li>
+            <li><a href="#5.3">5.3 Wireless</a></li>
+            <li><a href="#5.4">5.4 Load-In</a></li>
+            <li><a href="#5.5">5.5 Pits</a></li>
+            <li><a href="#5.6">5.6 Carrinhos</a></li>
+            <li><a href="#5.7">5.7 Cerimônias</a></li>
+            <li><a href="#5.8">5.8 Arquibancadas</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="section-hero">
+        <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 60%; left: 85%; width: 30px; height: 30px; animation-delay: 1s;"></div>
+        <div class="floating-element" style="top: 80%; left: 15%; width: 15px; height: 15px; animation-delay: 2s;"></div>
+        
+        <div class="hero-content">
+            <div class="section-badge">
+                <i class="fas fa-gavel"></i> SEÇÃO 5
+            </div>
+            <h2>Regras do Evento (E)</h2>
+            <p>Regras gerais que se aplicam desde a chegada das equipes até a saída do local do evento. Promovendo uma experiência segura e organizada para todos os participantes.</p>
+            <p style="font-size: 1rem; margin-top: 20px; color: var(--accent-gold);">
+                <i class="fas fa-mouse-pointer"></i> Use o botão <i class="fas fa-list-ul"></i> à esquerda para acessar o índice completo
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <!-- Conteúdo da Seção -->
+        <main class="section-content">
+            <!-- Subseção 5.0 - Visão Geral -->
+            <section id="5.0" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.0</div>
+                    <div class="subsection-title">
+                        <h3>Visão Geral das Regras do Evento</h3>
+                        <div class="subsection-subtitle">Princípios fundamentais e violações</div>
+                    </div>
+                </div>
+                
+                <div class="content-box red">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Nota de Violação Universal</h4>
+                    <p>A violação de qualquer Regra do Evento (E) resultará em um aviso dos voluntários do evento. Violações flagrantes ou repetidas de uma Regra do Evento serão tratadas com um AVISO VERBAL do Árbitro Principal, do Inspetor Líder de ROBÔS (LRI) e/ou Diretor de Evento. Violações subsequentes podem resultar em escalonamento para a sede da FIRST e/ou desqualificação da equipe das partidas e prêmios. Comportamento criminoso não será tolerado e resultará na remoção do(s) indivíduo(s) envolvido(s) e/ou desqualificação da equipe do evento.</p>
+                </div>
+                
+                <div class="content-box gold">
+                    <h4><i class="fas fa-wheelchair"></i> Acessibilidade e Inclusão</h4>
+                    <p>A FIRST está comprometida com o STEM para Todos™ e, como tal, a FIRST se esforça para fazer adaptações razoáveis para pessoas com deficiência que solicitarem adaptação. Se um participante precisar de adaptação para um evento, pedimos que converse com um voluntário no evento ou entre em contato com sua liderança local antes do evento para que possam garantir que a solicitação seja atendida. As adaptações são consideradas razoáveis se não criarem um ônus indevido, causarem preocupações de segurança ou alterarem fundamentalmente a natureza do evento.</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><i class="fas fa-shield-alt"></i> <strong>Segurança em Primeiro Lugar:</strong> A segurança é sempre primordial. O Diretor de Evento tem a autoridade final de decisão para todas as questões relacionadas à segurança dentro do local.</p>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.1 -->
+            <section id="5.1" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.1</div>
+                    <div class="subsection-title">
+                        <h3>Regras Gerais</h3>
+                        <div class="subsection-subtitle">E101 a E117</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <h4><i class="fas fa-list"></i> Lista de Regras Gerais</h4>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E101</span> Segurança em Primeiro Lugar</strong>
+                        <p>Todos os membros da equipe devem observar as seguintes práticas de segurança durante todo o evento:</p>
+                        <ul>
+                            <li>Usar óculos de segurança ou óculos com proteção lateral (ANSI, UL, CE, AS/NZS ou CSA) nas áreas do FIELD e pits. Óculos claros ou levemente coloridos são preferíveis.</li>
+                            <li>Usar calçados fechados (proibido: Crocs, sandálias, chinelos, Birkenstocks).</li>
+                            <li>Controlar riscos de emaranhamento: prender cabelos longos e remover itens pendurados (cordões, anéis) ao trabalhar com o ROBÔ.</li>
+                            <li>Usar roupas apropriadas.</li>
+                            <li>Caminhar no local.</li>
+                            <li>Cumprir requisitos de saúde e segurança do local (ex: uso de máscaras).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E102</span> Seja Gentil</strong>
+                        <p>Comportamento incivilizado não é tolerado. Exemplos incluem linguagem ofensiva, "armar o Profissionalismo Gracioso", bloquear a visão de outros, e interferir em sensores remotos. Comportamento particularmente desprezível (agressão, ameaça, assédio, bullying, insultos, gritos) pode resultar em expulsão.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E103</span> Crianças com Adultos</strong>
+                        <p>Crianças menores de 12 anos devem estar acompanhadas por um adulto nos pits em todos os momentos.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E104</span> Respeite o Local</strong>
+                        <p>As equipes não podem danificar o local (arquibancadas, pisos, paredes, corrimãos) de forma alguma. Isso inclui jogar lixo, como brindes, doces e adesivos.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E105</span> Check-in Obrigatório</strong>
+                        <p>Um adulto da equipe deve fazer o check-in no Pit Administration até 45 minutos antes do início das partidas classificatórias, salvo aprovação do Diretor de Evento. Violação: Falha no check-in pode resultar na não participação da equipe.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E106</span> Recursos do Evento</strong>
+                        <p>Apenas equipes registradas podem usar o FIELD de competição, prática e inspetoria, a menos que pré-aprovado pelo Diretor de Evento.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E107</span> Prática Permitida</strong>
+                        <p>As equipes só podem praticar com o ROBÔ no espaço do pit, nas áreas de prática designadas ou durante uma partida de prática. Demonstrar funcionalidades para juízes não é considerado prática.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E108</span> Trabalho em Áreas Designadas</strong>
+                        <p>Itens fabricados só podem ser produzidos na área do pit da equipe, de outra equipe (com permissão), na fila de partidas ou em áreas designadas pela equipe do evento.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E109</span> Itens Proibidos</strong>
+                        <p>Não traga ou use: skates, hoverboards, drones, tanques de gás (ex: hélio), dispositivos barulhentos (apitos, cornetas), walkie-talkies, ou scooters (exceto para acomodações).</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E110</span> Utilidades</strong>
+                        <p>Não organize energia ou internet com provedores do local nem use conexões de internet reservadas para fins do evento.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E111</span> Proibida Venda</strong>
+                        <p>As equipes não podem realizar vendas de qualquer item no evento.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E112</span> Música</strong>
+                        <p>Não convide bandas ao vivo para tocar na plateia. Não toque música alta.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E113</span> Faixas com Cuidado</strong>
+                        <p>Seja respeitoso ao pendurar faixas: não cubra outras faixas, compartilhe espaço, não obstrua a visão, obtenha permissão para áreas externas ao pit, pendure com segurança e limite o tamanho a 2,3 m² fora do pit.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E114</span> Bandeiras na Arena</strong>
+                        <p>Bandeiras e mastros devem ter tamanho razoável (< 91x152cm e < 907g; mastro < 2,43m e < 1,36kg).</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E115</span> Sem Armas</strong>
+                        <p>Armas de fogo ou outras são proibidas, incluindo réplicas que pareçam reais. Esta política não se aplica a policiais ou segurança do local.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E116</span> Inspeção para FIELD de Prática</strong>
+                        <p>A equipe só pode usar o FIELD de prática com um ROBÔ que passou na inspeção inicial completa.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E117</span> Gravações</strong>
+                        <p>Não grave interações com ninguém no evento sem o consentimento da pessoa.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.2 -->
+            <section id="5.2" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.2</div>
+                    <div class="subsection-title">
+                        <h3>Máquinas e Espaços da Equipe Anfitriã</h3>
+                        <div class="subsection-subtitle">Oficinas e recursos compartilhados</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>Raramente, alguns eventos oferecem uma oficina mecânica ou abrem o espaço de construção da equipe anfitriã durante horários específicos para ajudar as equipes com reparo e fabricação de seus ROBÔS. As oficinas mecânicas são tipicamente patrocinadas pela organização anfitriã local. Na maioria dos casos, a oficina está no local e é prontamente acessível a todas as equipes. Todas as equipes concorrentes devem ter acesso aos mesmos recursos.</p>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.3 -->
+            <section id="5.3" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.3</div>
+                    <div class="subsection-title">
+                        <h3>Regras de Wireless</h3>
+                        <div class="subsection-subtitle">E301 a E302</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E301</span> Sem Comunicação Wireless Própria</strong>
+                        <p>As equipes não podem configurar sua própria comunicação Wi-Fi (802.11a/b/g/n/ac/ax/b), Bluetooth ou outros sistemas de 2,4GHz ou 5GHz no local. Um hotspot de celular, câmera, smart TV, etc., é considerado um ponto de acesso e é proibido. Muitos brinquedos R/C (drones, veículos sem fio) usam 2,4GHz e 5GHz e não podem ser operados no local.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E302</span> Não Interfira</strong>
+                        <p>Os participantes não podem interferir, tentar interferir ou tentar se conectar a qualquer outra rede sem permissão expressa. As equipes são incentivadas a relatar suspeitas de vulnerabilidades de segurança ao FTA ou Diretor de Evento.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.4 -->
+            <section id="5.4" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.4</div>
+                    <div class="subsection-title">
+                        <h3>Load-In (Entrada)</h3>
+                        <div class="subsection-subtitle">Preparação para o evento</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>Alguns eventos grandes podem definir horários específicos para as equipes carregarem seu ROBÔ e equipamentos nas áreas de pit antes da abertura oficial dos pits. O mais importante que uma equipe deve lembrar é ser segura, graciosa e profissional. As equipes que têm uma experiência tranquila são encorajadas a verificar com outras para ver se podem ajudar.</p>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.5 -->
+            <section id="5.5" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.5</div>
+                    <div class="subsection-title">
+                        <h3>Pits</h3>
+                        <div class="subsection-subtitle">E501 a E510</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>Um pit de equipe é o espaço designado, tipicamente uma área de 3m x 3m, onde a equipe pode trabalhar em seu ROBÔ. Cada equipe recebe um espaço marcado com seu número. A área do pit refere-se à área geral onde os pits estão localizados.</p>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E501</span> Pits Fechados</strong>
+                        <p>As equipes não podem acessar a área do pit fora do horário designado.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E502</span> Fique no seu Pit</strong>
+                        <p>As equipes devem configurar seus equipamentos dentro do espaço designado. Não podem passar fiação para outras áreas, trocar de pit ou se mudar sem aprovação do Diretor de Evento.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E503</span> Corredores Livres</strong>
+                        <p>Os corredores devem ser mantidos desobstruídos.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E504</span> Sem Faíscas ou Chamas</strong>
+                        <p>Ferramentas que produzem faíscas ou chamas abertas (soldadores, esmerilhadeiras, maçaricos) são proibidas.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E505</span> Nada Muito Grande</strong>
+                        <p>Ferramentas estacionárias de grande porte (furadeiras de coluna grandes, serras de fita) são proibidas.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E506</span> Sem Brasagem ou Solda</strong>
+                        <p>Brasagem/solda é proibida.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E507</span> Solda com Ferramentas Específicas</strong>
+                        <p>A soldagem só pode ser feita com ferro elétrico.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E508</span> Estruturas Seguras</strong>
+                        <p>Não construa estruturas que suportem peso de pessoas ou armazenem itens suspensos. Não bloqueie sprinklers.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E509</span> Identificação Segura</strong>
+                        <p>Placas, bandeiras e displays devem estar firmemente montados na estrutura do pit.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E510</span> Aerossóis</strong>
+                        <p>Aerossóis ou produtos químicos com fumes nocivos devem ser usados apenas em áreas aprovadas. Nem todos os locais permitirão seu uso.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.6 -->
+            <section id="5.6" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.6</div>
+                    <div class="subsection-title">
+                        <h3>Carrinhos de ROBÔ</h3>
+                        <div class="subsection-subtitle">E601 a E605</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E601</span> Carrinhos Seguros</strong>
+                        <p>Os carrinhos devem ser fáceis de controlar, manobrar e não representar risco para os espectadores.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E602</span> Tamanho do Carrinho</strong>
+                        <p>Os carrinhos devem caber em uma porta padrão de 30 polegadas (~76cm).</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E603</span> Estacionamento</strong>
+                        <p>Os carrinhos devem permanecer no pit ou áreas de estacionamento designadas quando não estiverem em uso.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E604</span> Sem Barulho</strong>
+                        <p>Os carrinhos não podem ter dispositivos geradores de som.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E605</span> Sem Motor</strong>
+                        <p>Carrinhos de ROBÔ não podem usar propulsão motorizada.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.7 -->
+            <section id="5.7" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.7</div>
+                    <div class="subsection-title">
+                        <h3>Cerimônias</h3>
+                        <div class="subsection-subtitle">E701 a E703</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E701</span> Silêncio nos Pits</strong>
+                        <p>Durante as cerimônias fora das partidas de playoff, os membros da equipe não podem usar ferramentas elétricas, ferramentas manuais barulhentas ou gritar.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E702</span> Limite nos Pits</strong>
+                        <p>No máximo 5 membros da equipe podem estar nos pits durante as cerimônias fora dos playoffs. Cada equipe deve ter pelo menos 1 representante observando as cerimônias.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E703</span> Respeito aos Hinos</strong>
+                        <p>Os membros da equipe devem exibir comportamento pacífico durante a apresentação dos hinos nacionais.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 5.8 -->
+            <section id="5.8" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">5.8</div>
+                    <div class="subsection-title">
+                        <h3>Nas Arquibancadas</h3>
+                        <div class="subsection-subtitle">E801 a E802</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E801</span> Sem Guardar Lugares</strong>
+                        <p>As equipes não podem guardar ou designar assentos. O Diretor de Evento pode reservar assentos para acessibilidade ou playoffs.</p>
+                    </div>
+                    
+                    <div class="rule-item">
+                        <strong><span class="rule-badge">E802</span> Sem Arremessos</strong>
+                        <p>Itens não podem ser arremessados da arquibancada.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Aviso Legal -->
+            <section id="legal" class="subsection">
+                <div class="content-box red">
+                    <h4><i class="fas fa-balance-scale"></i> Nota sobre a Tradução</h4>
+                    <p>Esta é uma tradução não-oficial da seção 5 (Event Rules) do Manual de Competição FIRST Tech Challenge 2025-2026. Em caso de conflito entre esta tradução e o manual oficial em inglês, a versão em inglês publicada no site da FIRST tem prioridade. Para questões oficiais, utilize o sistema de Q&A da FIRST.</p>
+                    <p><a href="https://www.firstinspires.org/robotics/ftc" target="_blank" style="color: var(--accent-gold);">Acesse o manual oficial aqui <i class="fas fa-external-link-alt"></i></a></p>
+                </div>
+            </section>
+            
+            <!-- Navegação entre Seções -->
+            <div class="section-navigation">
+                <a href="secao4.html" class="nav-button prev">
+                    <i class="fas fa-arrow-left"></i>
+                    <div>
+                        <div class="nav-label">Seção Anterior</div>
+                        <div class="nav-title">Seção 4: Avanço</div>
+                    </div>
+                </a>
+                
+                <a href="secao6.html" class="nav-button next">
+                    <div>
+                        <div class="nav-label">Próxima Seção</div>
+                        <div class="nav-title">Seção 6: Premiações</div>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>FIRST Tech Challenge</h3>
+                <p>Tradução não-oficial do Manual de Competição FIRST Tech Challenge 2025-2026. DECODE™ apresentado por RTX.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Seções do Manual</h3>
+                <ul class="footer-links">
+                    <li><a href="secao1.html">Seção 1: Introdução</a></li>
+                    <li><a href="secao2.html">Seção 2: Visão Geral da Temporada</a></li>
+                    <li><a href="secao3.html">Seção 3: Elegibilidade e Inspeção</a></li>
+                    <li><a href="secao4.html">Seção 4: Avanço</a></li>
+                    <li><a href="secao5.html">Seção 5: Regras do Evento</a></li>
+                    <li><a href="secao6.html">Seção 6: Premiações</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Página Inicial</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc" target="_blank">Site Oficial da FIRST</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc/game-and-season" target="_blank">Jogo e Temporada</a></li>
+                    <li><a href="https://ftc-events.firstinspires.org/" target="_blank">Eventos FTC</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>FIRST® é uma marca registrada da FIRST (For Inspiration and Recognition of Science and Technology).</p>
+            <p>DECODE™ é uma marca registrada da RTX. Este site não é afiliado à FIRST ou RTX.</p>
+            <p>© 2025 - Tradução para Fins Educacionais | Seção 5: Regras do Evento</p>
+        </div>
+    </footer>
+
+    <script>
+        // Elementos DOM
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const quickNav = document.getElementById('quickNav');
+        
+        // Abrir/fechar sidebar
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Menu móvel
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Ativar links na sidebar ao rolar
+        const sections = document.querySelectorAll('.subsection');
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        const quickNavLinks = document.querySelectorAll('.quick-nav a');
+        
+        function activateLinkOnScroll() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            quickNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Mostrar/ocultar quick-nav baseado na rolagem
+            if (window.scrollY > 500) {
+                quickNav.classList.add('active');
+            } else {
+                quickNav.classList.remove('active');
+            }
+        }
+        
+        window.addEventListener('scroll', activateLinkOnScroll);
+        
+        // Navegação suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Fechar sidebar se estiver aberta
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Rolagem suave
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Fechar sidebar ao clicar em um link dentro dela
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Elementos flutuantes dinâmicos
+        function createFloatingElements() {
+            const hero = document.querySelector('.section-hero');
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = `${Math.random() * 90 + 5}%`;
+                element.style.top = `${Math.random() * 80 + 10}%`;
+                element.style.width = `${Math.random() * 20 + 10}px`;
+                element.style.height = element.style.width;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                element.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+                hero.appendChild(element);
+            }
+        }
+        
+        createFloatingElements();
+    </script>
+</body>
+</html>
