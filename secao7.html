@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seção 7: Reconhecimento de Patrocinadores - Manual FTC DECODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-gold: #d4af37;
+            --accent-red: #c41e3a;
+            --text-light: #f5f5f5;
+            --text-gray: #aaaaaa;
+            --section-bg: rgba(26, 26, 26, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(196, 30, 58, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Header e Navegação */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo-icon {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text span {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-red);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Botão da Sidebar */
+        .sidebar-toggle {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 998;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sidebar-toggle:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Seção Hero */
+        .section-hero {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(196, 30, 58, 0.1), transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.1), transparent 50%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: var(--text-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .section-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .section-hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Conteúdo Principal */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Sidebar de Navegação */
+        .sidebar {
+            position: fixed;
+            left: -350px;
+            top: 0;
+            height: 100vh;
+            width: 320px;
+            background-color: var(--primary-black);
+            z-index: 999;
+            padding: 100px 25px 40px;
+            border-right: 2px solid var(--accent-gold);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .sidebar-header h3 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .close-sidebar:hover {
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 12px;
+        }
+        
+        .sidebar-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-nav a:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left-color: var(--accent-gold);
+            padding-left: 25px;
+        }
+        
+        .sidebar-nav a.active {
+            background-color: rgba(196, 30, 58, 0.2);
+            border-left-color: var(--accent-red);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        
+        .sidebar-nav i {
+            color: var(--accent-gold);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .section-indicator {
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Conteúdo da Seção */
+        .section-content {
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .subsection {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+        
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+        
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .subsection-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .subsection-title h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+        
+        .subsection-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        .content-box {
+            background-color: rgba(10, 10, 10, 0.5);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-gold);
+        }
+        
+        .content-box.red {
+            border-left-color: var(--accent-red);
+        }
+        
+        .content-box.gold {
+            border-left-color: var(--accent-gold);
+        }
+        
+        .content-box h4 {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content-box.red h4 {
+            color: var(--accent-red);
+        }
+        
+        .content-box p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .content-box ul, .content-box ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .content-box li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--accent-gold);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        .highlight p {
+            color: var(--text-light);
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .sponsor-card {
+            background: linear-gradient(145deg, rgba(196, 30, 58, 0.2), rgba(212, 175, 55, 0.2));
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sponsor-card i {
+            font-size: 5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+        
+        .sponsor-card h3 {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+        
+        .sponsor-card p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .sponsor-logo-placeholder {
+            width: 200px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed var(--accent-gold);
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        /* Índice de Navegação Rápida */
+        .quick-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 997;
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+        .quick-nav.active {
+            display: block;
+        }
+        
+        .quick-nav h4 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .quick-nav ul {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .quick-nav li {
+            margin-bottom: 8px;
+        }
+        
+        .quick-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .quick-nav a:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+        }
+        
+        .quick-nav a.active {
+            background-color: rgba(196, 30, 58, 0.2);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        
+        /* Navegação entre Seções */
+        .section-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 30px;
+            background-color: rgba(26, 26, 26, 0.8);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            width: 48%;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(196, 30, 58, 0.2);
+            border-color: var(--accent-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-button.prev {
+            text-align: left;
+        }
+        
+        .nav-button.next {
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .nav-button i {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+        }
+        
+        .nav-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .nav-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-black);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            border-top: 2px solid var(--accent-gold);
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-section p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s, padding-left 0.3s;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            max-width: 1400px;
+            margin: 40px auto 0;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .quick-nav {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: transform 0.3s, opacity 0.3s;
+                border-bottom: 2px solid var(--accent-gold);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                display: block;
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+            
+            .section-hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section-content {
+                padding: 25px;
+            }
+            
+            .section-navigation {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-button {
+                width: 100%;
+            }
+            
+            .sidebar-toggle {
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .sidebar {
+                width: 280px;
+                padding: 90px 20px 40px;
+            }
+        }
+        
+        /* Animações de entrada */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Seção 7: Reconhecimento de Patrocinadores</h1>
+                    <div class="breadcrumb">
+                        <a href="index.html"><i class="fas fa-home"></i> Página Inicial</a> 
+                        <i class="fas fa-chevron-right"></i> 
+                        <span>Seção 7: Reconhecimento de Patrocinadores</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                    <li><a href="#manual"><i class="fas fa-book"></i> Manual</a></li>
+                    <li><a href="#resources"><i class="fas fa-tools"></i> Recursos</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Botão para abrir sidebar -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-list-ul"></i>
+    </button>
+    
+    <!-- Overlay para fechar sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar de Navegação -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-list-ul"></i> Conteúdo da Seção</h3>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#7.0"><i class="fas fa-chevron-right"></i> 7.0 Patrocinador Apresentador</a></li>
+                <li><a href="#7.1"><i class="fas fa-chevron-right"></i> 7.1 RTX</a></li>
+                <li><a href="#7.2"><i class="fas fa-chevron-right"></i> 7.2 Agradecimentos</a></li>
+            </ul>
+        </nav>
+        
+        <div class="section-indicator">
+            <i class="fas fa-exclamation-circle"></i> Seção 7 de 16
+        </div>
+    </aside>
+    
+    <!-- Índice de Navegação Rápida -->
+    <div class="quick-nav" id="quickNav">
+        <h4>Navegação Rápida</h4>
+        <ul>
+            <li><a href="#7.0">7.0 Patrocinador</a></li>
+            <li><a href="#7.1">7.1 RTX</a></li>
+            <li><a href="#7.2">7.2 Agradecimentos</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="section-hero">
+        <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 60%; left: 85%; width: 30px; height: 30px; animation-delay: 1s;"></div>
+        <div class="floating-element" style="top: 80%; left: 15%; width: 15px; height: 15px; animation-delay: 2s;"></div>
+        
+        <div class="hero-content">
+            <div class="section-badge">
+                <i class="fas fa-handshake"></i> SEÇÃO 7
+            </div>
+            <h2>Reconhecimento de Patrocinadores</h2>
+            <p>Agradecimento ao patrocinador apresentador da temporada 2025-2026 do FIRST Tech Challenge.</p>
+            <p style="font-size: 1rem; margin-top: 20px; color: var(--accent-gold);">
+                <i class="fas fa-mouse-pointer"></i> Use o botão <i class="fas fa-list-ul"></i> à esquerda para acessar o índice completo
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <!-- Conteúdo da Seção -->
+        <main class="section-content">
+            <!-- Subseção 7.0 -->
+            <section id="7.0" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">7.0</div>
+                    <div class="subsection-title">
+                        <h3>Patrocinador Apresentador da Temporada</h3>
+                        <div class="subsection-subtitle">Game Sponsor Recognition</div>
+                    </div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <i class="fas fa-building"></i>
+                    <h3>RTX</h3>
+                    <div class="sponsor-logo-placeholder">
+                        <i class="fas fa-image"></i> Logo da RTX
+                    </div>
+                    <p>A RTX é a orgulhosa patrocinadora apresentadora da temporada 2025-2026 do FIRST Tech Challenge: DECODE™.</p>
+                </div>
+                
+                <div class="content-box gold">
+                    <h4><i class="fas fa-quote-right"></i> Mensagem do Manual Oficial</h4>
+                    <p>"Thank you to the 2025-26 FIRST® Tech Challenge season presenting sponsor, RTX."</p>
+                    <p style="text-align: right; color: var(--accent-gold);">— Manual de Competição FIRST Tech Challenge 2025-2026</p>
+                </div>
+            </section>
+            
+            <!-- Subseção 7.1 -->
+            <section id="7.1" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">7.1</div>
+                    <div class="subsection-title">
+                        <h3>Sobre a RTX</h3>
+                        <div class="subsection-subtitle">Parceira que torna o DECODE possível</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>A RTX é uma das maiores empresas aeroespaciais e de defesa do mundo, com mais de 180.000 funcionários globalmente. A empresa é composta por três negócios líderes do setor – Collins Aerospace, Pratt & Whitney e Raytheon – que trabalham juntos para resolver os desafios mais difíceis dos clientes.</p>
+                    
+                    <p>O apoio da RTX ao FIRST Tech Challenge reflete seu compromisso em inspirar a próxima geração de inovadores, engenheiros e cientistas. Através de parcerias como esta, a RTX ajuda a construir um futuro mais brilhante e tecnologicamente avançado.</p>
+                    
+                    <div class="highlight">
+                        <p><i class="fas fa-rocket"></i> A RTX apresentou o jogo DECODE™, desafiando equipes a explorar, decodificar e construir padrões em uma emocionante competição de robótica.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Subseção 7.2 -->
+            <section id="7.2" class="subsection">
+                <div class="subsection-header">
+                    <div class="subsection-number">7.2</div>
+                    <div class="subsection-title">
+                        <h3>Agradecimentos</h3>
+                        <div class="subsection-subtitle">Apoiadores que tornam o FIRST possível</div>
+                    </div>
+                </div>
+                
+                <div class="content-box">
+                    <p>A FIRST gostaria de estender sua sincera gratidão a todos os patrocinadores que tornam o FIRST Tech Challenge possível. Seu apoio financeiro, voluntariado e defesa são inestimáveis para alcançar nossa missão de inspirar jovens a se tornarem líderes em ciência e tecnologia.</p>
+                    
+                    <h4><i class="fas fa-trophy"></i> Outros Patrocinadores Importantes:</h4>
+                    <ul>
+                        <li><strong>Qualcomm:</strong> Patrocinador oficial do programa FIRST Tech Challenge, fornecendo tecnologia e suporte.</li>
+                        <li><strong>Worcester Polytechnic Institute (WPI):</strong> Patrocinador do Digital Animation Award.</li>
+                        <li><strong>UL Solutions:</strong> Patrocinador do Safety Animation Award.</li>
+                        <li><strong>AndyMark, REV Robotics, goBILDA, etc.:</strong> Fornecedores oficiais de componentes para robôs.</li>
+                    </ul>
+                    
+                    <p>Para uma lista completa de patrocinadores, visite o site oficial da FIRST.</p>
+                </div>
+            </section>
+            
+            <!-- Aviso Legal -->
+            <section id="legal" class="subsection">
+                <div class="content-box red">
+                    <h4><i class="fas fa-balance-scale"></i> Nota sobre a Tradução</h4>
+                    <p>Esta é uma tradução não-oficial da seção 7 (Game Sponsor Recognition) do Manual de Competição FIRST Tech Challenge 2025-2026. Em caso de conflito entre esta tradução e o manual oficial em inglês, a versão em inglês publicada no site da FIRST tem prioridade. Para questões oficiais, utilize o sistema de Q&A da FIRST.</p>
+                    <p><a href="https://www.firstinspires.org/robotics/ftc" target="_blank" style="color: var(--accent-gold);">Acesse o manual oficial aqui <i class="fas fa-external-link-alt"></i></a></p>
+                </div>
+            </section>
+            
+            <!-- Navegação entre Seções -->
+            <div class="section-navigation">
+                <a href="secao6.html" class="nav-button prev">
+                    <i class="fas fa-arrow-left"></i>
+                    <div>
+                        <div class="nav-label">Seção Anterior</div>
+                        <div class="nav-title">Seção 6: Premiações</div>
+                    </div>
+                </a>
+                
+                <a href="secao8.html" class="nav-button next">
+                    <div>
+                        <div class="nav-label">Próxima Seção</div>
+                        <div class="nav-title">Seção 8: Visão Geral do Jogo</div>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>FIRST Tech Challenge</h3>
+                <p>Tradução não-oficial do Manual de Competição FIRST Tech Challenge 2025-2026. DECODE™ apresentado por RTX.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Seções do Manual</h3>
+                <ul class="footer-links">
+                    <li><a href="secao1.html">Seção 1: Introdução</a></li>
+                    <li><a href="secao2.html">Seção 2: Visão Geral da Temporada</a></li>
+                    <li><a href="secao3.html">Seção 3: Elegibilidade e Inspeção</a></li>
+                    <li><a href="secao4.html">Seção 4: Avanço</a></li>
+                    <li><a href="secao5.html">Seção 5: Regras do Evento</a></li>
+                    <li><a href="secao6.html">Seção 6: Premiações</a></li>
+                    <li><a href="secao7.html">Seção 7: Reconhecimento de Patrocinadores</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Página Inicial</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc" target="_blank">Site Oficial da FIRST</a></li>
+                    <li><a href="https://www.firstinspires.org/robotics/ftc/game-and-season" target="_blank">Jogo e Temporada</a></li>
+                    <li><a href="https://ftc-events.firstinspires.org/" target="_blank">Eventos FTC</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>FIRST® é uma marca registrada da FIRST (For Inspiration and Recognition of Science and Technology).</p>
+            <p>DECODE™ é uma marca registrada da RTX. Este site não é afiliado à FIRST ou RTX.</p>
+            <p>© 2025 - Tradução para Fins Educacionais | Seção 7: Reconhecimento de Patrocinadores</p>
+        </div>
+    </footer>
+
+    <script>
+        // Elementos DOM
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const quickNav = document.getElementById('quickNav');
+        
+        // Abrir/fechar sidebar
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Menu móvel
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Ativar links na sidebar ao rolar
+        const sections = document.querySelectorAll('.subsection');
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        const quickNavLinks = document.querySelectorAll('.quick-nav a');
+        
+        function activateLinkOnScroll() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            quickNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Mostrar/ocultar quick-nav baseado na rolagem
+            if (window.scrollY > 500) {
+                quickNav.classList.add('active');
+            } else {
+                quickNav.classList.remove('active');
+            }
+        }
+        
+        window.addEventListener('scroll', activateLinkOnScroll);
+        
+        // Navegação suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Fechar sidebar se estiver aberta
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Rolagem suave
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Fechar sidebar ao clicar em um link dentro dela
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Elementos flutuantes dinâmicos
+        function createFloatingElements() {
+            const hero = document.querySelector('.section-hero');
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = `${Math.random() * 90 + 5}%`;
+                element.style.top = `${Math.random() * 80 + 10}%`;
+                element.style.width = `${Math.random() * 20 + 10}px`;
+                element.style.height = element.style.width;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                element.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+                hero.appendChild(element);
+            }
+        }
+        
+        createFloatingElements();
+    </script>
+</body>
+</html>
